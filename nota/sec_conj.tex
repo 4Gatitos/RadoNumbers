@@ -1,0 +1,382 @@
+% ---------------------------------------------------------------------------
+% Body of Section 7: the conjectures of Dwivedi and Tripathi.
+% This file is \input from main.tex -- no \documentclass, no \section here.
+% Uses host material: \cite{DT2020}, \Rad, \vtwo, Lemma~\ref{lem:mono},
+% Theorem~\ref{thm:ub1-unified} (the unified upper bound of
+% Section~\ref{sec:ub1}, regime $r \le d$, all $q \ge 0$),
+% Section~\ref{sec:comp}, and the theorem/lemma/remark environments.
+% ---------------------------------------------------------------------------
+
+Throughout this section $M := a(a+3) + 1 = a^2 + 3a + 1$, an odd integer with
+$M \ge 5$, and for an integer $c$ we set
+\[
+X \;:=\; 1 + c(a+3), \qquad K \;:=\; \left\lceil X/M \right\rceil - 1 .
+\]
+We extend the $2$-adic valuation by the conventions $\vtwo(0) := \infty$ and
+$\vtwo(-n) := \vtwo(n)$ for $n > 0$.
+
+Dwivedi and Tripathi accompany their theorems in \cite{DT2020} with two
+conjectures for the zones adjacent to them. \emph{Conjecture~1} asserts that
+\[
+\Rad(a;c) \;=\; (a+3)(a-c) + 1
+\qquad \text{for all } a \ge 1 \text{ and } c \le 0 \text{ with }
+\vtwo(a) \le \vtwo(c);
+\]
+they proved this when $a \mid c$ (their Theorem~4) and, for odd $a$, when $c$
+is sufficiently negative, in a precise residue-dependent sense.
+\emph{Conjecture~2} asserts that
+\[
+\Rad(a;c) \;=\; K + 1
+\qquad \text{for all } a \ge 1 \text{ and } c \ge a(K+2) \text{ with }
+\vtwo(a) \le \vtwo(c);
+\]
+their Theorem~6 gives the lower bound $\Rad(a;c) \ge K+1$ for every $c > a$,
+and their Theorem~7 proves the conjectured equality for all sufficiently
+large $c$, without an explicit threshold. In this section we prove both
+conjectures in full. Conjecture~1 is the case $q = 0$ of the unified upper
+bound of Section~\ref{sec:ub1} (Theorem~\ref{thm:ub1-unified});
+Conjecture~2 then follows by a reflection argument, in the spirit of the
+proof of Theorem~7 in \cite{DT2020}, which carries the regime
+$c \ge a(K+2)$ onto the regime of Conjecture~1.
+
+\begin{theorem}[Conjecture 1 of Dwivedi--Tripathi]\label{thm:c1}
+For every $a \ge 1$ and every integer $c \le 0$ with
+$\vtwo(a) \le \vtwo(c)$,
+\[
+\Rad(a;c) \;=\; (a+3)(a-c) + 1 .
+\]
+\end{theorem}
+
+\begin{proof}
+Set $d := a - c$; since $c \le 0$, we have $d \ge a \ge 1$.
+
+\emph{Lower bound.} Theorem~2 of \cite{DT2020} states that
+$\Rad(a;c) \ge (a+3)(a-c) + 1$ for every integer $c < a$; here
+$c \le 0 < 1 \le a$, so it applies.
+
+\emph{Upper bound for $d \ge 2$.} We check the hypotheses of
+Theorem~\ref{thm:ub1-unified} for the pair $(a, d)$, with the exact
+bookkeeping of its parameters $q$ and $r$. Write $a = 2dq + r$ with
+$q \ge 0$ and $r \in [1, 2d]$; since $1 \le a \le d < 2d$, the unique such
+decomposition is $q = 0$ and $r = a$. The regime condition $r \le d$ holds
+because $r = a \le d$, and the existence condition
+$\vtwo(a) \le \vtwo(a - d) = \vtwo(c)$ is our hypothesis (for $c = 0$,
+i.e.\ $d = a$, it holds by $\vtwo(0) = \infty$).
+Theorem~\ref{thm:ub1-unified} therefore gives
+\[
+\Rad(a;\,a-d) \;\le\; (a+3)d + a - \min(r-1,\, d-1) .
+\]
+Since $r = a \le d$ we have $\min(r-1,\, d-1) = r - 1 = a - 1$, so the
+bound reads
+\[
+\Rad(a;c) \;\le\; (a+3)d + a - (a-1) \;=\; (a+3)d + 1 \;=\; (a+3)(a-c) + 1 ,
+\]
+matching the lower bound.
+
+\emph{The excluded pair $d = 1$.} If $d = 1$, then $a = c + 1 \le 1$ forces
+$(a,c) = (1,0)$, the unique pair with $c \le 0$ and $d = 1$. Here $1 \mid 0$
+and $0 \le 0$, so Theorem~4 of \cite{DT2020} (equality for $a \mid c$,
+$c \le 0$) gives $\Rad(1;0) = (1+3)(1-0) + 1 = 5$ exactly.
+\end{proof}
+
+We now turn to Conjecture~2. Fix $a \ge 1$. The proof reflects the interval
+$[1, K+1]$ about its midpoint: the involution $\sigma(x) = N+1-x$ of
+$[1,N]$ exchanges solutions of $\mathcal{E}_{a,c}$ with solutions of
+$\mathcal{E}_{a,c'}$ for the reflected constant $c' = a(N+1) - c$, and at
+$N = K+1$ the hypothesis $c \ge a(K+2)$ places $c'$ in the range
+$c' \le 0$ of Theorem~\ref{thm:c1}. The following lemmas prepare the
+argument.
+
+\begin{lemma}[reflection identity]\label{lem:conj-reflect}
+Fix an integer $N \ge 1$ and let $\sigma \colon [1,N] \to [1,N]$,
+$\sigma(x) = N + 1 - x$. Then $\sigma$ is an involutive bijection, and for
+every triple $(x_1,x_2,x_3) \in [1,N]^3$ and every integer $c$:
+$(x_1,x_2,x_3)$ solves $\mathcal{E}_{a,c}$ if and only if
+$(\sigma(x_1), \sigma(x_2), \sigma(x_3))$ solves $\mathcal{E}_{a,\hat c}$,
+where $\hat c := a(N+1) - c$. Moreover, for every $2$-colouring $\chi$ of
+$[1,N]$, setting $\chi' := \chi \circ \sigma$, a triple
+$(y_1,y_2,y_3) \in [1,N]^3$ is $\chi'$-monochromatic if and only if
+$(\sigma(y_1),\sigma(y_2),\sigma(y_3))$ is $\chi$-monochromatic.
+Consequently, $\chi$ admits a monochromatic solution of
+$\mathcal{E}_{a,c}$ in $[1,N]^3$ if and only if $\chi'$ admits a
+monochromatic solution of $\mathcal{E}_{a,\hat c}$ in $[1,N]^3$. The map
+$c \mapsto a(N+1) - c$ is an involution, matching the involutivity of
+$\sigma$.
+\end{lemma}
+
+\begin{proof}
+For $x \in [1,N]$ we have $N + 1 - x \in [1,N]$ and
+$\sigma(\sigma(x)) = N + 1 - (N + 1 - x) = x$, so $\sigma$ is an involutive
+bijection of $[1,N]$. For the equation, put $y_i := N + 1 - x_i$; then
+\begin{align*}
+y_1 + a y_2 - y_3
+&= (N+1-x_1) + a(N+1-x_2) - (N+1-x_3) \\
+&= (N+1)(1 + a - 1) - (x_1 + a x_2 - x_3)
+ = a(N+1) - (x_1 + a x_2 - x_3) .
+\end{align*}
+Hence $y_1 + a y_2 - y_3 = \hat c$ if and only if
+$x_1 + a x_2 - x_3 = c$. Since $\sigma$ is an involution, the same identity
+applied to $(y_1,y_2,y_3)$ gives the converse direction with the involuted
+constant $a(N+1) - \hat c = c$; componentwise application of $\sigma$ is
+thus a bijection between the solution set of $\mathcal{E}_{a,c}$ in
+$[1,N]^3$ and that of $\mathcal{E}_{a,\hat c}$ in $[1,N]^3$. For
+monochromaticity: $\chi'(y_1) = \chi'(y_2) = \chi'(y_3)$ means
+$\chi(\sigma(y_1)) = \chi(\sigma(y_2)) = \chi(\sigma(y_3))$, which is
+exactly the $\chi$-monochromaticity of the $\sigma$-image triple; the
+converse follows by involutivity. Combining the two correspondences: if
+$\chi$ has a $\chi$-monochromatic solution $(x_1,x_2,x_3)$ of
+$\mathcal{E}_{a,c}$, then $(\sigma(x_1),\sigma(x_2),\sigma(x_3))$ solves
+$\mathcal{E}_{a,\hat c}$ and is $\chi'$-monochromatic, because
+$\chi'(\sigma(x_i)) = \chi(\sigma(\sigma(x_i))) = \chi(x_i)$; and
+symmetrically. No boundary issues arise: all entries of both triples stay
+in $[1,N]$ because $\sigma$ is a bijection of $[1,N]$.
+\end{proof}
+
+\begin{lemma}[exact ceiling arithmetic]\label{lem:conj-arith}
+Let $a \ge 1$ and let $c$ be an integer; recall $M = a(a+3)+1$,
+$X = 1 + c(a+3)$ and $K + 1 = \lceil X/M \rceil$.
+\begin{enumerate}
+\item[(i)] If $c \ge a(K+2)$, then $c > a$.
+\end{enumerate}
+For the remaining parts assume $c > a$, and set $s := (K+1)M - X$,
+$c' := a(K+2) - c$ and $c'' := a(K+1) - c$. Then, with exact integer
+arithmetic:
+\begin{enumerate}
+\item[(ii)] $K \ge 1$; hence $a(K+2) \ge 3a$, and the hypothesis
+$c \ge a(K+2)$ forces $c \ge 3a$.
+\item[(iii)] $s$ is an integer with $0 \le s \le M - 1$.
+\item[(iv)] $KM \le X - 1$, equivalently $KM \le c(a+3)$.
+\item[(v)] $(a+3)(a - c') + 1 = (K+1) - s$; in particular
+$(a+3)(a - c') + 1 \le K + 1$, with equality if and only if $M \mid X$.
+\item[(vi)] $(a+3)(a - c'') = X - 1 - KM + K \ge K$, i.e.\
+$K \le (a+3)(a - c'')$.
+\item[(vii)] $c'' < a$; this holds for every $c > a$, with no further
+hypothesis on $c$.
+\item[(viii)] If $c \ge a(K+2)$, then $c' \le 0$ and
+$c'' = c' - a \le -a < 0$; moreover $a - c' = c - a(K+1) \ge a \ge 1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Throughout we use the characterisation of the ceiling: for integers $p$
+and $q \ge 1$, $\lceil p/q \rceil$ is the unique integer $m$ with
+$(m-1)q < p \le mq$.
+
+(i) Suppose $c \ge a(K+2)$. From
+$K + 1 = \lceil X/M \rceil \ge X/M$ and
+$aX = a + ac(a+3) = a + c(M-1) = cM + (a - c)$ we get, exactly over the
+rationals,
+\[
+a(K+1) \;\ge\; \frac{aX}{M} \;=\; c + \frac{a-c}{M},
+\qquad\text{hence}\qquad
+a(K+2) \;\ge\; c + a + \frac{a-c}{M} .
+\]
+If $c \le a$, the last fraction is nonnegative, so
+$a(K+2) \ge c + a \ge c + 1 > c$, contradicting $c \ge a(K+2)$. Hence
+$c > a$. (In particular $K \ge 1$ then holds by (ii), whose proof uses only
+$c > a$; so a fortiori $K \ge 0$ and $c \ge a(K+2) \ge 2a > a$, with no
+circular appeal.)
+
+(ii) $c > a \ge 1$ gives
+$X = 1 + c(a+3) \ge 1 + (a+1)(a+3) = a^2 + 4a + 4 > a^2 + 3a + 1 = M$, so
+$X \ge M + 1$ and $K + 1 = \lceil X/M \rceil \ge 2$, i.e.\ $K \ge 1$. Then
+$a(K+2) \ge 3a$.
+
+(iii) By the ceiling characterisation, $KM < X \le (K+1)M$; hence
+$s = (K+1)M - X \ge 0$ and $s < (K+1)M - KM = M$, so $s \le M - 1$
+($s$ is an integer).
+
+(iv) From the strict left inequality $KM < X$ with both sides integers,
+$KM \le X - 1 = c(a+3)$.
+
+(v) $a - c' = a - a(K+2) + c = c - a(K+1)$. Compute
+\begin{align*}
+(a+3)(a - c') + 1 &= (a+3)\bigl(c - a(K+1)\bigr) + 1
+= c(a+3) + 1 - a(a+3)(K+1) \\
+&= X - (M-1)(K+1)
+= X - M(K+1) + (K+1) = (K+1) - s .
+\end{align*}
+Since $s \ge 0$, this is $\le K + 1$, with equality iff $s = 0$ iff
+$M \mid X$.
+
+(vi) $a - c'' = c - aK$, so
+$(a+3)(a - c'') = c(a+3) - a(a+3)K = (X-1) - (M-1)K = (X - 1 - KM) + K
+\ge 0 + K = K$, using (iv).
+
+(vii) $c'' < a$ iff $a(K+1) - c < a$ iff $aK < c$. By (iv),
+$aKM \le ac(a+3) = c(M-1) = cM - c < cM$, since $c > 0$; dividing the
+strict integer inequality $aKM < cM$ by $M > 0$ gives $aK < c$.
+
+(viii) $c \ge a(K+2)$ gives $c' = a(K+2) - c \le 0$ and
+$c'' = c' - a \le -a < 0$ directly (note
+$c' - c'' = a(K+2) - a(K+1) = a$). Also
+$a - c' = c - a(K+1) \ge a(K+2) - a(K+1) = a \ge 1$.
+\end{proof}
+
+\begin{lemma}[$2$-adic transfer]\label{lem:conj-2adic}
+Let $a \ge 1$ and $c$ be integers with $\vtwo(a) \le \vtwo(c)$, and let $n$
+be any integer. Then $c^* := an - c$ satisfies
+$\vtwo(c^*) \ge \vtwo(a)$; in particular $\vtwo(a) \le \vtwo(c^*)$, so the
+existence condition for $\Rad(a;c^*)$ holds. This covers $c^* = 0$, by the
+convention $\vtwo(0) = \infty \ge \vtwo(a)$.
+\end{lemma}
+
+\begin{proof}
+The $2$-adic valuation is ultrametric: for integers $u$ and $v$,
+$\vtwo(u - v) \ge \min\bigl(\vtwo(u), \vtwo(v)\bigr)$, valid with the
+conventions above. Indeed, if $u = v$ the left side is $\infty$;
+otherwise, with $m := \min(\vtwo(u), \vtwo(v))$, $2^m \mid u$ and
+$2^m \mid v$, hence $2^m \mid (u - v)$, so $\vtwo(u - v) \ge m$. Now
+$\vtwo(an) = \vtwo(a) + \vtwo(n) \ge \vtwo(a)$ (equal to $\infty$ if
+$n = 0$, still $\ge \vtwo(a)$), and $\vtwo(c) \ge \vtwo(a)$ by hypothesis.
+Therefore
+$\vtwo(c^*) = \vtwo(an - c) \ge \min\bigl(\vtwo(an), \vtwo(c)\bigr)
+\ge \vtwo(a)$.
+\end{proof}
+
+\begin{lemma}[the boundary case $c = a(K+2)$]\label{lem:conj-boundary}
+Let $a \ge 1$ and $c > a$, and put $c' := a(K+2) - c$. Then $c = a(K+2)$
+if and only if $c' = 0$, and in that case the instance of Conjecture~1
+attached to the pair $(a, c')$ is
+$\Rad(a;0) = (a+3)(a - 0) + 1 = a(a+3) + 1 = M$, which is Theorem~4 of
+\cite{DT2020} applied at $c = 0$ (where $a \mid 0$), even independently of
+Theorem~\ref{thm:ub1-unified}. Moreover the boundary family is nonempty
+for every $a$: the value $c_0 := a(M+1)$ satisfies $X = M^2$, $K + 1 = M$
+and $c_0 = a(K+2)$ exactly, with $s = 0$; and
+$\vtwo(c_0) = \vtwo(a) + \vtwo(M+1) \ge \vtwo(a)$, so $c_0$ is admissible
+for every $a \ge 1$.
+\end{lemma}
+
+\begin{proof}
+The first equivalence is immediate from the definition of $c'$. When
+$c' = 0$, the pair $(a, 0)$ satisfies $a \mid 0$ and $0 \le 0$, so
+Theorem~4 of \cite{DT2020} gives
+$\Rad(a;0) = (a+3)(a-0) + 1 = a(a+3) + 1 = M$ (existence holds for every
+$a$, since $\vtwo(0) = \infty \ge \vtwo(a)$). For the nonemptiness, let
+$c_0 = a(M+1)$; using $a(a+3) = M - 1$,
+\[
+X \;=\; 1 + a(M+1)(a+3) \;=\; 1 + (M+1)(M-1) \;=\; M^2 ,
+\]
+so $K + 1 = \lceil M^2/M \rceil = M$, $K + 2 = M + 1$, and
+$a(K+2) = a(M+1) = c_0$ exactly; then
+$s = (K+1)M - X = M \cdot M - M^2 = 0$, and by
+Lemma~\ref{lem:conj-arith}(v) the value $(a+3)(a - c') + 1$ equals $K+1$:
+the reflection in the proof of Theorem~\ref{thm:c2} below is tight there.
+Finally $\vtwo(c_0) = \vtwo(a) + \vtwo(M+1) \ge \vtwo(a)$.
+\end{proof}
+
+\begin{theorem}[Conjecture 2 of Dwivedi--Tripathi]\label{thm:c2}
+Let $a \ge 1$ and let $c$ be an integer with $\vtwo(a) \le \vtwo(c)$ and
+$c \ge a(K+2)$, where
+$K = \bigl\lceil (1 + c(a+3)) / (1 + a(a+3)) \bigr\rceil - 1$. Then
+\[
+\Rad(a;c) \;=\; K + 1 .
+\]
+\end{theorem}
+
+Before the proof, one remark on the hypotheses: any such $c$ automatically
+satisfies $c > a$. Indeed, by Lemma~\ref{lem:conj-arith}(i), the inequality
+$c \ge a(K+2)$ alone forces $c > a$, whence $K \ge 1$ by
+Lemma~\ref{lem:conj-arith}(ii) and in fact $c \ge a(K+2) \ge 3a$. The
+standing regime $c > a$ of Theorems~6 and~7 of \cite{DT2020} is therefore
+implied, not additionally assumed.
+
+\begin{proof}
+Write $N := K + 1$; as just noted, $c > a$ and $K \ge 1$, so $N \ge 2$.
+
+\emph{Lower bound.} Theorem~6 of \cite{DT2020} states that
+$\Rad(a;c) \ge \lceil (1 + c(a+3))/(1 + a(a+3)) \rceil = K + 1$ for every
+$c > a$, which holds here. (Remark~\ref{rem:conj-lb} gives an alternative
+derivation from Theorem~2 of \cite{DT2020} by reflection.)
+
+\emph{Upper bound.} Let $\chi$ be an arbitrary $2$-colouring of $[1,N]$.
+Set $\sigma(x) := N + 1 - x = K + 2 - x$ on $[1,N]$,
+$\chi' := \chi \circ \sigma$, and $c' := a(N+1) - c = a(K+2) - c$.
+
+\emph{Step 1: Theorem~\ref{thm:c1} applies to the pair $(a, c')$.} By
+hypothesis $c \ge a(K+2)$, so $c' \le 0$
+(Lemma~\ref{lem:conj-arith}(viii)). By Lemma~\ref{lem:conj-2adic} with
+$n = K + 2$, $\vtwo(c') \ge \vtwo(a)$, i.e.\ $\vtwo(a) \le \vtwo(c')$.
+Hence Theorem~\ref{thm:c1} yields
+\[
+\Rad(a;c') \;=\; (a+3)(a - c') + 1 \;=:\; R' .
+\]
+(In the boundary case $c = a(K+2)$ one has $c' = 0$ and $R' = M$; see
+Lemma~\ref{lem:conj-boundary}.)
+
+\emph{Step 2: $R'$ fits inside $[1,N]$.} By
+Lemma~\ref{lem:conj-arith}(v), $R' = (K+1) - s$ with
+$s = (K+1)M - X \in [0, M-1]$ (Lemma~\ref{lem:conj-arith}(iii)), hence
+$R' \le K + 1 = N$. Also $R' \ge M \ge 5$: indeed $a - c' \ge a$ by
+Lemma~\ref{lem:conj-arith}(viii), so
+$R' = (a+3)(a - c') + 1 \ge (a+3)a + 1 = M$.
+
+\emph{Step 3: a monochromatic $c'$-solution for $\chi'$.} The map $\chi'$
+is a $2$-colouring of $[1,N]$; restrict it to $[1,R']$. Since
+$R' = \Rad(a;c')$, every $2$-colouring of $[1,R']$ --- in particular
+$\chi'|_{[1,R']}$ --- admits a monochromatic solution
+$(y_1,y_2,y_3) \in [1,R']^3$ of $\mathcal{E}_{a,c'}$. As $R' \le N$, this
+triple lies in $[1,N]^3$ and is $\chi'$-monochromatic.
+
+\emph{Step 4: reflect back.} By Lemma~\ref{lem:conj-reflect}, applied with
+this $N$, the triple
+$(x_1,x_2,x_3) := (\sigma(y_1), \sigma(y_2), \sigma(y_3))$ lies in
+$[1,N]^3$, solves $\mathcal{E}_{a,\hat c}$ with
+$\hat c = a(N+1) - c' = a(K+2) - (a(K+2) - c) = c$, and is
+$\chi$-monochromatic, since
+$\chi' \circ \sigma = \chi \circ \sigma \circ \sigma = \chi$ by
+involutivity.
+
+Since $\chi$ was arbitrary, every $2$-colouring of $[1, K+1]$ admits a
+monochromatic solution of $\mathcal{E}_{a,c}$ in $[1,K+1]^3$; in
+particular $\Rad(a;c)$ is finite and $\Rad(a;c) \le K + 1$. Combined with
+the lower bound, $\Rad(a;c) = K + 1$.
+\end{proof}
+
+\begin{remark}\label{rem:conj-lb}
+The lower bound in Theorem~\ref{thm:c2} can also be re-derived from
+Theorem~2 of \cite{DT2020} alone, without the construction underlying
+their Theorem~6, by the same reflection. Let $c > a$ and put
+$c'' := a(K+1) - c$; then $c'' < a$ by Lemma~\ref{lem:conj-arith}(vii).
+The proof of Theorem~2 of \cite{DT2020} exhibits, for every integer
+$c'' < a$ and with no $2$-adic hypothesis, an explicit valid colouring
+$\chi_0$ of $[1, L]$, $L := (a+3)(a - c'')$, for the pair $(a, c'')$.
+This reading matters when $\vtwo(a) > \vtwo(c'')$: then $\Rad(a;c'')$ is
+infinite, and the inequality ``$\Rad(a;c'') \ge L + 1$'' carries its
+content through the explicit construction --- the colouring exists by
+construction, not by formal citation of an inequality between possibly
+infinite quantities (cf.\ Lemma~\ref{lem:mono}). By
+Lemma~\ref{lem:conj-arith}(vi), $K \le L$, so the restriction
+$\chi_0|_{[1,K]}$ is a valid colouring of $[1,K]$ for $(a, c'')$
+(Lemma~\ref{lem:mono}). Now apply Lemma~\ref{lem:conj-reflect} with
+$N = K$: the colouring $\chi := \chi_0|_{[1,K]} \circ \sigma_K$, where
+$\sigma_K(x) = K + 1 - x$, admits a monochromatic solution of
+$\mathcal{E}_{a,\hat c}$ with $\hat c = a(K+1) - c'' = c$ if and only if
+$\chi_0|_{[1,K]}$ admits one of $\mathcal{E}_{a,c''}$ --- which it does
+not. Hence $\chi$ is a valid colouring of $[1,K]$ for $(a,c)$, and
+$\Rad(a;c) \ge K + 1$ for every $c > a$.
+\end{remark}
+
+\begin{remark}\label{rem:conj-range}
+The hypothesis $c \ge a(K+2)$ holds for every
+$c \ge 2aM = 2a(a^2 + 3a + 1)$. Indeed
+$K + 1 = \lceil X/M \rceil \le (X + M - 1)/M$, so, exactly over the
+rationals,
+\[
+a(K+2) \;\le\; \frac{a(X + M - 1)}{M} + a
+\;=\; \frac{c(M-1) + aM}{M} + a
+\;=\; c - \frac{c}{M} + 2a ,
+\]
+which is $\le c$ as soon as $c \ge 2aM$. Theorem~\ref{thm:c2} therefore
+applies to every admissible $c \ge 2a(a^2+3a+1)$; in particular,
+``$c$ sufficiently large'' in Theorem~7 of \cite{DT2020} may be taken to
+mean $c \ge 2a(a^2+3a+1)$. Below this threshold the hypothesis is a
+genuine restriction: for $a = 5$ (where $M = 41$), every multiple of $5$
+in $[210, 410]$ satisfies $c = a(K+2)$ exactly --- the first being
+$c_0 = a(M+1) = 210$ of Lemma~\ref{lem:conj-boundary}, with the slack $s$
+sweeping $[0, M-1]$ along the family --- while $c = 211$ fails it (there
+$a(K+2) = 215 > c$). In the remaining zone $a < c < a(K+2)$, Theorem~6 of
+\cite{DT2020} still gives the lower bound $\Rad(a;c) \ge K + 1$, but
+equality can fail; this is exactly the middle band studied in
+Section~\ref{sec:band}, outside the scope of Conjecture~2.
+\end{remark}

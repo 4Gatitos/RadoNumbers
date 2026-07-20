@@ -1,0 +1,580 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{tikz}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,
+  pdftitle={Exact two-colour Rado numbers of x1+ax2-x3=c},
+  pdfauthor={Jan Sherzad Colet},
+  pdfkeywords={Rado numbers, Ramsey theory on the integers, monochromatic
+    solutions, SAT solving, DRAT certificates}]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\Rad}{\mathrm{Rad}_2}
+\newcommand{\vtwo}{\nu_2}
+\DeclareMathOperator{\lcm}{lcm}
+
+\title{Exact two-colour Rado numbers of $x_1 + a x_2 - x_3 = c$: \\
+the window $0 < c < a$ and two conjectures \\ of Dwivedi and Tripathi}
+\author{Jan Sherzad Colet\thanks{Independent researcher.
+\texttt{jansherzadcolet@gmail.com}. Every computational
+claim in this note is accompanied by machine-checkable certificates (witness
+colourings and DRAT proofs verified by \texttt{drat-trim}); the complete
+verification package is available from the author and at
+\url{https://github.com/4Gatitos/RadoNumbers}.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For integers $a \ge 1$ and $c$, the $2$-colour Rado number $\Rad(a;c)$ is the
+least $N$ such that every $2$-colouring of $\{1,\dots,N\}$ admits a
+monochromatic solution of $x_1 + a x_2 - x_3 = c$, repeated values being
+allowed; it exists if and only if $\vtwo(a) \le \vtwo(c)$, where $\vtwo$ is
+the $2$-adic valuation. Dwivedi and Tripathi
+[\emph{Integers} \textbf{20} (2020), \#A36] determined $\Rad(a;c)$ in several
+parameter ranges and asked for the remaining exact values. We resolve the
+window $0 < c < a$ completely: writing $d = a-c$ and $r \equiv a \pmod{2d}$
+with $r \in [1,2d]$,
+\[
+\Rad(a;\,a-d) \;=\;
+\begin{cases}
+2a+2, & d = 1,\\[2pt]
+(a+3)d + a - \min(r-1,\, d-1), & d \ge 2,
+\end{cases}
+\]
+whenever the number exists. The upper-bound argument extends to $c \le 0$,
+proving Conjecture~1 of Dwivedi and Tripathi in full; their Conjecture~2
+then follows by a reflection argument. In every regime the final obstruction
+is precisely the $2$-adic existence condition. In the remaining band
+$a < c < a(K+2)$, where
+$K+1 = \lceil (1+c(a+3))/(1+a(a+3)) \rceil$ is the general lower bound of
+Dwivedi and Tripathi, the values appear to follow no closed formula; there
+we prove an extension of their multiples theorem and announce the complete
+determination of the band, with proofs to appear in a companion manuscript.
+All results are corroborated by more than $30{,}000$ SAT-computed values
+with independently verifiable certificates.
+
+\medskip
+\noindent\emph{2020 Mathematics Subject Classification:} 05D10 (primary);
+11B75, 68R05 (secondary).
+
+\noindent\emph{Keywords:} Rado numbers, Ramsey theory on the integers,
+monochromatic solutions, SAT solving, DRAT certificates.
+\end{abstract}
+
+\section{Introduction}
+
+For an equation $\mathcal{E}$ in the variables $x_1,\dots,x_m$, the
+$2$-colour Rado number $\Rad(\mathcal{E})$ is the least positive integer $N$
+such that every $2$-colouring of the integer interval $[1,N]$ contains a
+monochromatic solution of $\mathcal{E}$, that is, a solution all of whose
+entries receive the same colour; solutions with repeated values are allowed.
+Following Dwivedi and Tripathi \cite{DT2020}, we study the family
+\[
+\mathcal{E}_{a,c}\colon\quad x_1 + a x_2 - x_3 = c ,
+\]
+where $a$ is a positive integer and $c$ any integer, and write
+$\Rad(a;c) := \Rad(\mathcal{E}_{a,c})$.
+
+Dwivedi and Tripathi proved that $\Rad(a;c)$ exists if and only if
+$\vtwo(a) \le \vtwo(c)$ (with $\vtwo(0) = \infty$), and determined it exactly
+in several parameter ranges: for $c \le 0$ when $a \mid c$, or when $a$ is odd
+and $c$ is sufficiently negative (in a precise residue-dependent sense); for
+$c = ma$ with $1 < m \le a+1$; and for $c > a$ sufficiently large. In the
+remaining ranges they gave upper and lower bounds, together with two
+conjectures for the zones adjacent to their theorems. In the recent paper
+\cite{DT2025} the same authors returned to the problem and wrote that
+``it would be desirable to determine the exact value of the Rado number in
+all cases.''
+
+In the window $0 < c < a$ their results give the bounds
+$(a+3)(a-c)+1 \le \Rad(a;c) \le (2a+1)(a-c)+1$ (for odd $a$; similarly for
+even $a$), and no conjecture. A subsequent paper of Arora, Dwivedi and
+Tripathi \cite{ADT2025} extends the lower bound to a general class of
+equations $\sum_i a_i x_i - x_m = c$, with matching exact values when the
+coefficient multiset is \emph{$2$-distributable}; for the equation studied
+here the multiset is $\{1, a\}$, which is $2$-distributable only for
+$a \le 2$, so in our window that paper again yields exactly the lower bound
+$(a+3)(a-c)+1$. This note closes the window completely --- in particular,
+the lower bound of \cite{DT2020,ADT2025} is never tight there for
+$a \ge 3$, $d \ge 2$.
+
+\begin{theorem}\label{thm:d1}
+Let $a \ge 3$ be odd. Then $\Rad(a;\,a-1) = 2a+2$.
+\end{theorem}
+
+(For even $a$ the number $\Rad(a;a-1)$ does not exist, since $a-1$ is odd;
+so Theorem~\ref{thm:d1} covers the whole diagonal $c = a-1$. The case $a=3$,
+i.e.\ $\Rad(3;2) = 8$, appears in \cite{DT2020}; the general statement is
+new.)
+
+\begin{theorem}\label{thm:main}
+Let $a > d \ge 2$ with $\vtwo(a) \le \vtwo(a-d)$, and write $a = 2dq + r$
+with $q \ge 0$ an integer and $r \in [1, 2d]$. Then
+\[
+\Rad(a;\,a-d) \;=\; (a+3)d + a - \min(r-1,\, d-1).
+\]
+\end{theorem}
+
+Under the existence condition one automatically has $r \in [1, 2d-1]$
+(Lemma~\ref{lem:norm}), and the two theorems together determine
+$\Rad(a;c)$ for every pair with $0 < c < a$ for which it exists. It is
+curious that the uniform formula of Theorem~\ref{thm:main} fails for $d = 1$
+by exactly one unit: the extremal colouring family of
+Section~\ref{sec:family} degenerates at $d=1$ into a colouring of
+$[1, 2a+2]$ which is \emph{not} valid --- and the proof of
+Theorem~\ref{thm:d1} shows that nothing else works at that length either.
+
+Our third and fourth results settle the two conjectures of \cite{DT2020}.
+For $c \le 0$ one has $d = a - c \ge a$, so that $r \equiv a \pmod{2d}$ is
+simply $r = a$: the window formula of Theorem~\ref{thm:main} formally
+reduces to $(a+3)d + a - (a-1) = (a+3)(a-c) + 1$, which is exactly the value
+predicted by Conjecture~1 of \cite{DT2020}. This is no coincidence: our
+upper-bound proof for the regime $r \le d$ extends to this degenerate case
+($q = 0$ in the normalisation $a = 2dq + r$) after adjusting two range
+conditions, and the lower bound is Theorem~2 of \cite{DT2020}.
+
+\medskip
+\noindent\textbf{Theorem~\ref{thm:c1}} (Conjecture~1 of \cite{DT2020}).
+\emph{Let $a \ge 1$ and $c \le 0$ with $\vtwo(a) \le \vtwo(c)$. Then
+$\Rad(a;c) = (a+3)(a-c) + 1$.}
+
+\medskip
+\noindent\textbf{Theorem~\ref{thm:c2}} (Conjecture~2 of \cite{DT2020}).
+\emph{Let $a \ge 1$ and let $c \ge a(K+2)$ with $\vtwo(a) \le \vtwo(c)$, where
+$K = \bigl\lceil (1 + c(a+3)) / (1 + a(a+3)) \bigr\rceil - 1$. Then
+$\Rad(a;c) = K + 1$.}
+
+\medskip
+Theorem~\ref{thm:c2} follows from Theorem~\ref{thm:c1} by a
+reflection argument generalising the proof of Theorem~7 of \cite{DT2020}
+(Section~\ref{sec:conj}). Taken together, these results determine
+$\Rad(a;c)$ exactly for every $c \le 0$, every $0 < c \le a$, and every
+$c \ge a(K+2)$. The remaining zone --- the band $a < c < a(K+2)$ --- behaves
+very differently: no closed formula holds there, the fluctuations being of
+Sturmian type. Section~\ref{sec:band} states what we can prove about the
+band: an extension of the multiples theorem of \cite{DT2020}
+(Theorem~\ref{thm:band-mult}, proved here), the complete determination of
+the band's deep tail, where the threshold is itself a Rado number from the
+window $0 < c < a$ (Theorem~\ref{thm:band-tail}), and the exact
+determination of the whole band by a polynomial-time algorithm
+(Theorem~\ref{thm:band-alg}); the proofs of the last two will appear in the
+companion manuscript \cite{companion}.
+
+Table~\ref{tab:summary} and Figure~\ref{fig:zones} summarise the resulting
+picture.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lll}
+\hline
+zone & $\Rad(a;c)$ & reference \\
+\hline
+$c \le 0$ & $(a+3)(a-c)+1$ & Theorem~\ref{thm:c1} \\
+$0 < c < a$, $d = 1$ & $2a+2$ & Theorem~\ref{thm:d1} \\
+$0 < c < a$, $d \ge 2$ & $(a+3)d + a - \min(r-1,d-1)$ & Theorem~\ref{thm:main} \\
+$c = a$ & $1$ & \cite{DT2020} \\
+$a < c < a(K+2)$, $a \mid c$ & $c/a$ & Theorem~\ref{thm:band-mult} \\
+$a < c < a(K+2)$, $a \nmid c$ & deep-tail formula; exact algorithm &
+Theorems~\ref{thm:band-tail}--\ref{thm:band-alg}$^{*}$ \\
+$c \ge a(K+2)$ & $K+1$ & Theorem~\ref{thm:c2} \\
+\hline
+\end{tabular}
+\caption{The value of $\Rad(a;c)$ on each parameter zone, assuming the
+existence condition $\vtwo(a) \le \vtwo(c)$. Here $d = a-c$,
+$r \equiv a \pmod{2d}$ with $r \in [1,2d]$, and
+$K = \lceil (1+c(a+3))/(1+a(a+3)) \rceil - 1$. Entries marked $^{*}$ are
+announced here and proved in the companion manuscript; all other entries
+are proved in this note or in \cite{DT2020}.}
+\label{tab:summary}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[xscale=0.92, yscale=0.9, font=\small]
+% axis
+\draw[->] (-3.4,0) -- (12.6,0) node[right] {$c$};
+% zone boundaries
+\foreach \x/\lab in {0/{$0$}, 2.2/{$a$}, 8.2/{$a(K{+}2)$}}
+  \draw (\x,-0.12) -- (\x,0.12) node[below=8pt] {\lab};
+% zone bands
+\fill[gray!14] (-3.3,0.25) rectangle (0,1.05);
+\fill[gray!28] (0,0.25) rectangle (2.2,1.05);
+\fill[gray!45] (2.2,0.25) rectangle (8.2,1.05);
+\fill[gray!14] (8.2,0.25) rectangle (12.5,1.05);
+% zone labels (formulas)
+\node at (-1.65,0.65) {$(a{+}3)(a{-}c){+}1$};
+\node at (1.1,0.65) {window};
+\node at (5.2,1.35) {middle band: Sturmian fluctuations above $K{+}1$};
+\node at (10.35,0.65) {$K+1$};
+% theorem tags
+\node at (-1.65,-0.75) {Thm~\ref{thm:c1}};
+\node at (1.1,-0.75) {Thms~\ref{thm:d1}--\ref{thm:main}};
+\node at (5.2,-0.75) {Thms~\ref{thm:band-mult}--\ref{thm:band-alg}};
+\node at (10.35,-0.75) {Thm~\ref{thm:c2}};
+% sawtooth inside the band, above the K+1 baseline
+\draw[thick] (2.3,0.42) -- (2.8,0.95) -- (3.0,0.55) -- (3.6,0.9) -- (3.8,0.5)
+  -- (4.5,0.85) -- (4.7,0.47) -- (5.5,0.8) -- (5.7,0.44) -- (6.6,0.72)
+  -- (6.8,0.4) -- (7.6,0.6) -- (7.8,0.36) -- (8.15,0.33);
+\draw[dashed] (2.2,0.3) -- (8.2,0.3);
+\end{tikzpicture}
+\caption{The zones of $\Rad(a;c)$ (schematic, $c$ increasing to the right).
+Outside the middle band the value follows the closed formulas of
+Table~\ref{tab:summary}; inside it, the value oscillates above the lower
+bound $K+1$ of \cite{DT2020} (dashed) in a quasi-periodic, three-distance
+pattern, and is determined by the algorithm of Theorem~\ref{thm:band-alg}.}
+\label{fig:zones}
+\end{figure}
+
+The proofs have a common architecture, which generalises the forcing
+arguments of \cite{DT2020}. The lower bounds are witnessed by an explicit
+two-parameter family of periodic colourings with regularly spaced phase
+defects (Section~\ref{sec:family}). The upper bounds are rigidity arguments:
+any putative valid colouring of the critical interval is forced, triple by
+triple, into a highly structured pattern, and the final obstruction that
+kills the pattern is, in both parameter regimes, \emph{exactly} the $2$-adic
+existence condition $\vtwo(a) \le \vtwo(a-d)$ --- in the regime $r \le d$
+through the fact that $\gcd(r, 2d) \mid d$, and in the regime $r > d$
+through the incompatibility of antipodal and $s$-antiperiodic patterns on
+$\mathbb{Z}_{2d}$ when $\vtwo(s) \ne \vtwo(d)$, $s = r-d$
+(Sections~\ref{sec:ub1} and~\ref{sec:ub2}).
+
+\paragraph{Methodology and verifiability.}
+The formula of Theorem~\ref{thm:main}, the extremal family, and the key
+structural lemmas were first \emph{discovered} through an extensive
+SAT-solver-based computation of exact Rado numbers: $3662$ pairs $(a,c)$
+with $3 \le a \le 15$, $-100 \le c \le 300$, later extended along $0 < c < a$
+up to $a = 45$. Every computed value $\Rad(a;c) = N$ is certified in both
+directions: a valid colouring of $[1,N-1]$ (checkable by a trivial
+independent program) and a DRAT proof of unsatisfiability at $N$, generated
+by CaDiCaL~2.1.3 \cite{cadical} and verified by \texttt{drat-trim} against an independently
+regenerated CNF encoding. The proofs presented here are, however, entirely
+self-contained and human-readable; the computations play no logical role in
+the theorems of this note: they served to discover the statements and to
+corroborate them independently. Every one of the $925$ computed values with
+$c \le 0$, and every value in the ranges of the four theorems, matches the
+formulas proved here (Section~\ref{sec:comp}).
+
+\section{Preliminaries}\label{sec:prelim}
+
+Throughout, $[u,v]$ denotes $\{u, u+1, \dots, v\}$ and $\vtwo$ the $2$-adic
+valuation. A \emph{colouring} is a map $\chi\colon [1,N] \to \{0,1\}$; it is
+\emph{valid} (for the pair $(a,c)$) if no solution
+$(x_1,x_2,x_3) \in [1,N]^3$ of $x_1 + a x_2 - x_3 = c$ is monochromatic.
+
+Solving for $x_3$, we see that the solutions in $[1,N]^3$ are exactly the
+triples
+\begin{equation}\label{eq:triples}
+T(x,k) \;=\; \bigl(x,\; k,\; x + a(k-1) + d\bigr), \qquad d := a - c,
+\end{equation}
+with $x, k \in [1,N]$ and $1 \le x + a(k-1) + d \le N$ (for $d \ge 1$, which
+holds everywhere outside Section~\ref{sec:band}, the constraint
+$x + a(k-1) + d \ge 1$ is automatic). We record two standard facts.
+
+\begin{lemma}[monotonicity]\label{lem:mono}
+If $[1,N]$ admits a valid colouring, so does $[1,N']$ for every $N' \le N$
+(restrict the colouring). Hence $\Rad(a;c) > N$ if and only if $[1,N]$
+admits a valid colouring, and to determine $\Rad(a;c) = N$ it suffices to
+exhibit a valid colouring of $[1,N-1]$ and to prove that no valid colouring
+of $[1,N]$ exists.
+\end{lemma}
+
+\begin{lemma}[colour symmetry]\label{lem:wlog}
+$\chi$ is valid if and only if $1-\chi$ is valid. In any proof by
+contradiction we may therefore normalise $\chi(1) = 0$.
+\end{lemma}
+
+\begin{lemma}[normalisation]\label{lem:norm}
+Let $d \ge 1$, $a > d$, and write $a = 2dq + r$ with $r \in [1, 2d]$.
+\begin{enumerate}
+\item[(i)] If $r = 2d$, then $\vtwo(a) > \vtwo(a-d)$, so $\Rad(a;a-d)$ does
+not exist. Under the existence condition, therefore, $r \in [1, 2d-1]$.
+\item[(ii)] If $r \le d$ then $q \ge 1$ (so $a \ge 2d+1$).
+\item[(iii)] If $r = d + s$ with $s \in [1, d-1]$, then $q \ge 0$, and the
+existence condition is equivalent to $\vtwo(s) \ne \vtwo(d)$
+(Lemma~\ref{lem:2adic-b} below); if $r \le d$, the existence condition
+implies $\vtwo(r) \le \vtwo(d)$, hence $\gcd(r,2d) \mid d$
+(Lemma~\ref{lem:2adic-a} below).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) Write $a = 2dm$, $m \ge 1$. Then $\vtwo(a) \ge \vtwo(d)+1$ while
+$a - d = d(2m-1)$ gives $\vtwo(a-d) = \vtwo(d)$.
+(ii) If $q = 0$ then $a = r \le d$, contradicting $a > d$.
+(iii) The two $2$-adic statements are proved as
+Lemmas~\ref{lem:2adic-a} and~\ref{lem:2adic-b} in the sections where they
+are used.
+\end{proof}
+
+\section{The diagonal $c = a-1$: proof of Theorem~\ref{thm:d1}}\label{sec:d1}
+
+Here $d = 1$ and the solution triples \eqref{eq:triples} are
+$T(x,k) = (x, k, x + a(k-1) + 1)$.
+
+\subsection*{Lower bound}
+Colour $[1, 2a+1]$ by the classes
+\[
+A \;=\; \{\,x \text{ odd} : x \le a\,\} \cup \{\,x \text{ even} : a+3 \le x \le 2a\,\},
+\qquad
+B \;=\; [1, 2a+1] \setminus A .
+\]
+If a triple $T(x,k)$ lies in $[1, 2a+1]^3$ then $a(k-1) \le 2a-1$, so
+$k \in \{1,2\}$. A monochromatic triple in $A$ would need $k = 1$ (as
+$2 \notin A$: the even elements of $A$ start at $a+3$); but for $x \in A$ odd,
+$x+1$ is even and $\le a+1$, hence in $B$, and for $x \in A$ even,
+$x+1$ is odd and $\ge a+4$, hence in $B$. A monochromatic triple in $B$ would
+need $k = 2$ (as $1 \notin B$); but for $x \in B$ even, $x \le a+1$: if
+$x \le a-1$ then $x_3 = x + a + 1$ is even in $[a+3, 2a]$, hence in $A$,
+and if $x = a+1$ then $x_3 = 2a+2$ is out of range; for $x \in B$ odd,
+$x \ge a+2$, so $x_3 \ge 2a+3$ is out of range. Hence the colouring is valid
+and $\Rad(a; a-1) \ge 2a+2$.
+
+\subsection*{Upper bound}
+Let $\chi$ colour $[1, 2a+2]$ with no monochromatic triple; by
+Lemma~\ref{lem:wlog}, $\chi(1) = 0$.
+
+\emph{Step 1.} $T(x,1) = (x,1,x+1)$ is a solution for every $x \le 2a+1$.
+Since $\chi(1) = 0$, no two consecutive integers are both coloured $0$.
+In particular $T(1,1) = (1,1,2)$ forces $\chi(2) = 1$.
+
+\emph{Step 2.} $T(x,2) = (x,2,x+a+1)$ is a solution for $x \le a+1$. Since
+$\chi(2) = 1$: if $\chi(x) = 1$ with $x \le a+1$, then $\chi(x+a+1) = 0$.
+
+\emph{Step 3.} The pairs $\{x, x+a+1\}$, $x \in [1, a+1]$, partition
+$[1, 2a+2]$. By Step~2 each pair contains a $0$, so $\#\chi^{-1}(0) \ge a+1$;
+by Step~1, $\#\chi^{-1}(0) \le a+1$. Hence exactly $a+1$ zeros, no two
+adjacent, in an interval of length $2a+2$: the zero set must be
+\[
+Z_j \;=\; \{1, 3, \dots, 2j-3\} \cup \{2j, 2j+2, \dots, 2a+2\}
+\]
+for some $j$, and $\chi(1) = 0$ forces $j \in [2, a+2]$.
+
+\emph{Step 4.} Each $j$ is contradictory.
+If $j = a+2$ (zeros are all the odds), the triple $(a+1, 2, 2a+2)$ is
+monochromatic of colour $1$ ($a+1$ and $2a+2$ are even).
+If $3 \le j \le a+1$, then $\chi(1) = \chi(3) = 0$ and $2a+2 \ge 2j$ is an
+even member of $Z_j$; the triple $(1, 3, 2a+2)$ is monochromatic of colour
+$0$.
+If $j = 2$ (zeros are $\{1\} \cup \{4, 6, \dots, 2a+2\}$), then
+$\chi(3) = \chi(2) = 1$ and $a+4$ is odd and $\ge 5$, hence coloured $1$;
+the triple $(3, 2, a+4)$ is monochromatic of colour $1$ (note
+$a + 4 \le 2a+2$ for $a \ge 2$). \qed
+
+\section{The extremal family and the lower bound for $d \ge 2$}\label{sec:family}
+\input{sec_lb}
+
+\section{The upper bound in the regime $r \le d$}\label{sec:ub1}
+\input{sec_ub1}
+
+\section{The upper bound in the regime $r > d$}\label{sec:ub2}
+\input{sec_ub2}
+
+\section{The conjectures of Dwivedi and Tripathi}\label{sec:conj}
+\input{sec_conj}
+
+\section{The middle band}\label{sec:band}
+
+Theorems~\ref{thm:d1}, \ref{thm:main}, \ref{thm:c1} and~\ref{thm:c2}
+determine $\Rad(a;c)$ everywhere
+except in the \emph{middle band} $a < c < a(K+2)$ (with $K$ as in
+Theorem~\ref{thm:c2}), where the behaviour is qualitatively different from
+that in all the other zones. About the band, the
+status of the statements below is as follows.
+\emph{Theorem~\ref{thm:band-mult} is proved here in full.}
+\emph{Theorems~\ref{thm:band-tail} and~\ref{thm:band-alg} are announced}:
+we state them precisely and describe the structure of their proofs, but the
+complete arguments are longer and will appear in the companion manuscript
+\cite{companion}; all supporting computations and verification programs are
+already available with this note. Nothing in
+Sections~\ref{sec:prelim}--\ref{sec:conj} depends on
+Theorems~\ref{thm:band-tail} or~\ref{thm:band-alg}.
+
+The multiples of $a$ inside the band are governed by a simple degeneracy,
+which extends Theorem~5 of \cite{DT2020} (proved there for $1 < m \le a+1$)
+to the full range in which the value $m$ is attained.
+
+\begin{theorem}\label{thm:band-mult}
+Let $a \ge 1$ and let $c = ma$ with $2 \le m \le a(a+3)+1$. Then
+$\Rad(a;\,ma) = m$.
+\end{theorem}
+
+\begin{proof}
+The triple $(x_1,x_2,x_3) = (m,m,m)$ satisfies $m + am - m = am = c$ and is
+monochromatic under every colouring, so $\Rad(a;ma) \le m$. For the lower
+bound, Theorem~6 of \cite{DT2020} gives $\Rad(a;c) \ge K+1$, and with
+$M := a(a+3)+1$ one computes $1 + ma(a+3) = mM - (m-1)$, whence
+$K + 1 = \lceil (mM - (m-1))/M \rceil = m$ for $m \le M$.
+\end{proof}
+
+For $c$ deep inside the band the value is pinned to the immediate
+neighbourhood of the lower bound of \cite{DT2020}, and the exact threshold
+turns out to be --- remarkably --- a Rado number from the window
+$0 < c < a$, so that the band inherits its fine structure from
+Theorems~\ref{thm:d1} and~\ref{thm:main}.
+
+\begin{theorem}[deep tail]\label{thm:band-tail}
+Let $(a,c)$ lie in the middle band with $\vtwo(a) \le \vtwo(c)$ and
+$a \nmid c$, write $t = c \bmod a \in [1, a-1]$ and
+$\lambda = \lceil c/a \rceil$, and set
+\[
+E_1 = E_1(a,t) \;:=\; \Rad(a;\,a-t),
+\]
+the value determined by Theorem~\ref{thm:d1} (for $t = 1$) and
+Theorem~\ref{thm:main} (for $t \ge 2$); this Rado number exists, since
+$\vtwo(a) \le \vtwo(c)$ forces $\vtwo(a) \le \vtwo(t)$, hence
+$\vtwo(a) \le \vtwo(a-t)$. If $t \ge 2$ and
+$\lambda \ge t(a+3)+2$, or $t = 1$ and $\lambda \ge 2a-2$, then
+\[
+\Rad(a;c) \;=\; \lambda - 1 + [\lambda \le E_1],
+\]
+where $[P]$ equals $1$ if the condition $P$ holds and $0$ otherwise.
+\end{theorem}
+
+In the remaining (shallow) part of the band no closed formula appears to
+hold, and the computations indicate that this is not an artefact of our
+methods. Along each diagonal
+$\{c : c \equiv -\mu \pmod a\}$ the excess $\Rad(a;c) - (K+1)$ forms a
+non-increasing staircase whose step pattern follows the three-distance
+(Sturmian) structure of the rotation by $c - a$ on $\mathbb{Z}_a$, with
+step sizes governed by the continued-fraction expansion of $\mu/a$; the
+staircases are eventually periodic only for special $\mu$. A concrete
+finite obstruction: for $(a,c) = (7,16)$ \emph{every} valid colouring of
+the extremal interval $[1, 15]$ has at least nine maximal runs (an
+exhaustive check), so no family of colourings with a bounded number of
+blocks can witness the lower bounds uniformly across the band. The exact
+values can nonetheless be determined:
+
+\begin{theorem}[exact determination of the band]\label{thm:band-alg}
+There is an algorithm which, given $(a,c)$ in the middle band with
+$\vtwo(a) \le \vtwo(c)$, computes $\Rad(a;c)$ exactly in time polynomial in
+$a$.
+\end{theorem}
+
+The algorithm decides, for each candidate length $N$, the existence of a
+valid colouring of $[1,N]$ as follows. For $a \nmid c$ (the multiples of
+$a$ being settled by Theorem~\ref{thm:band-mult}), all solution triples of
+\eqref{eq:triples} share the multiplier window
+$W = \{k \in [1,N] : 1 \le |ak - c| \le N-1\}$, a set of $O(N/a)$
+consecutive integers; once the colours of $W$ are fixed, validity is a
+$2$-{\upshape SAT} instance; and it suffices to test the $O(|W|^2)$
+assignments in which one colour class of $W$ is a single contiguous block.
+The completeness of this restricted family --- every colourable length
+admits a valid colouring of the restricted form --- is the main technical
+result behind the theorem: in any valid colouring the two central
+multipliers of $W$ must receive the same colour, and every non-extremal
+multiplier inherits that colour, by a rigidity argument whose only
+arithmetic input is, once again, the existence condition
+$\vtwo(a) \le \vtwo(c)$.
+
+Across the $28{,}000$-plus band values computed to date the algorithm
+agrees with the SAT-computed ground truth without exception, and each value
+carries the same two-sided certificates as the rest of this note.
+
+\begin{example}\label{ex:716}
+Take $(a,c) = (7,16)$, so $t = 2$, $\lambda = 3$, $\mu = 5$ and $K+1 = 3$,
+while in fact $\Rad(7;16) = 16$ (a certified value; see
+Section~\ref{sec:comp}): the lower bound of \cite{DT2020} is off by
+$13$ here. An extremal colouring of $[1,15]$ is
+\[
+1\;0\;0\;1\;1\;0\;1\;1\;1\;0\;1\;1\;0\;0\;1,
+\]
+which has nine maximal runs --- and, as noted above, no valid colouring of
+$[1,15]$ has fewer. At $N = 15$ the multiplier window is
+$W = \{1,2,3,4\}$, with shifts $7k - 16$ equal to $-9, -2, 5, 12$; the two
+central multipliers $k = 2, 3$ carry the smallest distances $t = 2$ and
+$\mu = 5$. The restriction of the colouring above to $W$ is $(1,0,0,1)$ ---
+just three runs, exactly the shape required by the restricted family of
+Theorem~\ref{thm:band-alg}. The colouring is globally complex, but its
+window trace is simple; this contrast is the heart of the band.
+\end{example}
+
+\section{Computations and certificates}\label{sec:comp}
+
+The exact values of $\Rad(a;c)$ were computed for all existing pairs with
+$3 \le a \le 15$ and $-100 \le c \le 300$ ($3662$ pairs), and additionally
+for all existing pairs with $0 < c < a$ up to $a = 45$. The encoding is the
+obvious one: a Boolean variable per integer in $[1,N]$ and, for every
+solution triple \eqref{eq:triples}, two clauses forbidding the two
+monochromatic colourings of that triple. For each pair, the exact value
+$\Rad(a;c) = N$ is certified by:
+\begin{enumerate}
+\item a valid colouring of $[1, N-1]$, re-verified by an independent
+brute-force checker of about $30$ lines that has no code in common with the
+search program; and
+\item a DRAT proof of unsatisfiability of the instance at $[1,N]$, produced
+by CaDiCaL~2.1.3 and verified with \texttt{drat-trim}
+\cite{drattrim} against a CNF regenerated by a second, independently written
+encoder.
+\end{enumerate}
+As validation, the same programs reproduce all $42$ values proved in
+\cite{DT2020} that fall in the computed range, as well as every value in the
+ranges covered by Theorems~\ref{thm:d1} and~\ref{thm:main}.
+
+Beyond the window $0 < c < a$, the computations corroborate
+Theorems~\ref{thm:c1} and~\ref{thm:c2} at every computed point:
+all $925$ values with $c \le 0$ in the grid (including the $234$ cases that
+were open before this note) match $(a+3)(a-c)+1$, as do $8$ further
+out-of-sample values with $a$ up to $33$ computed after the fact; and all
+$300$ computed values with $c \ge a(K+2)$ match $K+1$ ($12$ of them lie
+outside the ranges covered by the partial results of \cite{DT2020}).
+
+In the middle band the computations yield over $28{,}000$ further exact
+values (including complete sweeps of the band for several values of $a$),
+against which the results of Section~\ref{sec:band} were checked without
+exception.
+
+All witnesses, DRAT certificates, the two independent encoders, the checker,
+and scripts reproducing every finite verification used in the proofs are
+available from the author and in the repository accompanying this note,
+\url{https://github.com/4Gatitos/RadoNumbers}.
+
+\begin{thebibliography}{9}
+
+\bibitem{DT2020}
+S.~Dwivedi and A.~Tripathi,
+On the two-color Rado number for $x_1 + a x_2 - x_3 = c$,
+\emph{Integers} \textbf{20} (2020), \#A36.
+\url{http://math.colgate.edu/~integers/u36/u36.pdf}
+
+\bibitem{DT2025}
+S.~Dwivedi and A.~Tripathi,
+On the two-color disjunctive Rado number for the equations
+$\sum_{i=1}^{m-2} x_i + a x_{m-1} - x_m = c_j$,
+\emph{Integers} \textbf{25} (2025), \#A108.
+\url{http://math.colgate.edu/~integers/z108/z108.pdf}
+
+\bibitem{ADT2025}
+N.~Arora, S.~Dwivedi and A.~Tripathi,
+Improved two-colour Rado numbers for linear equations with certain
+coefficients,
+\emph{Electron.\ J.\ Combin.} \textbf{32}(4) (2025), \#P4.63.
+\url{https://doi.org/10.37236/13596}
+
+\bibitem{cadical}
+A.~Biere, T.~Faller, K.~Fazekas, M.~Fleury, N.~Froleyks and F.~Pollitt,
+CaDiCaL 2.0,
+in \emph{Computer Aided Verification (CAV 2024)}, LNCS 14681, Springer,
+2024, 133--152.
+
+\bibitem{companion}
+J.~Sherzad Colet,
+The middle band of the two-colour Rado numbers of $x_1 + a x_2 - x_3 = c$,
+in preparation.
+
+\bibitem{drattrim}
+N.~Wetzler, M.~J.~H. Heule and W.~A. Hunt~Jr.,
+DRAT-trim: efficient checking and trimming using expressive clausal proofs,
+in \emph{SAT 2014}, LNCS 8561, Springer, 2014, 422--429.
+\url{https://doi.org/10.1007/978-3-319-09284-3_31}
+
+\end{thebibliography}
+
+\end{document}

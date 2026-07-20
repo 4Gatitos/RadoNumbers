@@ -1,0 +1,415 @@
+% sec_ub2.tex --- input into Section 6: "The upper bound in the regime r > d".
+% Relies on the host for: \eqref{eq:triples}, Lemma~\ref{lem:norm},
+% Lemma~\ref{lem:wlog}, Theorem~\ref{thm:main}, Sections~\ref{sec:family}
+% and~\ref{sec:comp}, and the macros \Rad, \vtwo.
+% The top-block offset is denoted E := d(a+1), avoiding a clash with the
+% triple notation T(x,k) of \eqref{eq:triples}.
+
+The proof is a chain of forcing steps. Two elementary \emph{pair
+constraints}, coming from the multipliers $k = 1$ and $k = d+1$
+(Lemma~\ref{lem:ub2-pairs}), compose into a $\pm 2d$ ladder showing that any
+putative valid colouring is $2d$-periodic on an initial \emph{window}
+(Lemma~\ref{lem:ub2-window}) and colour-\emph{flipped} on a \emph{top block}
+of the same length (Lemma~\ref{lem:ub2-flip}); the window pattern
+$\phi \colon \mathbb{Z}_{2d} \to \{0,1\}$ is then \emph{antipodal},
+$\phi(\rho + d) = 1 - \phi(\rho)$ (Lemma~\ref{lem:ub2-antipodal}). Next,
+three explicit families of conflict triples --- with multipliers $k = d+2$,
+$k = d$, and a two-triple dichotomy using the consecutive multipliers
+$k = i,\, i+1$ through a common cell --- forbid every \emph{$s$-plateau} of
+$\phi$ (Lemma~\ref{lem:ub2-plateau}), and a purely combinatorial case
+analysis upgrades this to \emph{$s$-antiperiodicity},
+$\phi(m + s) = 1 - \phi(m)$ (Lemma~\ref{lem:ub2-rigidity}). Finally, a
+$2$-adic computation shows that antipodality and $s$-antiperiodicity are
+incompatible exactly when $\vtwo(s) \ne \vtwo(d)$ --- and this is precisely
+the existence condition in this regime (Lemma~\ref{lem:2adic-b}) --- so no
+valid colouring exists. The final obstruction is thus \emph{exactly} the
+$2$-adic existence condition: the $s$-antiperiodic patterns are the unique
+family of colourings escaping the plateau conflicts, and the existence
+condition is precisely what rules them out.
+
+\paragraph{Setup and standing assumption.}
+Fix $d \ge 2$ and $a > d$ in the regime $r > d$: by Lemma~\ref{lem:norm},
+under the existence condition $\vtwo(a) \le \vtwo(a-d)$ we have
+$r \in [d+1, 2d-1]$, so we write
+\[
+a \;=\; 2dq + d + s, \qquad s := r - d \in [1, d-1], \qquad q \ge 0,
+\]
+and set $c = a - d$. Put
+\[
+N \;:=\; (a+3)d + a - (d-1) \;=\; (d+1)a + 2d + 1,
+\qquad
+E \;:=\; d(a+1),
+\qquad
+W \;:=\; a + d + 1 .
+\]
+Then $N = E + W$: indeed
+$(a+3)d + a - (d-1) = ad + 3d + a - d + 1 = (d+1)a + 2d + 1$ and
+$E + W = d(a+1) + a + d + 1 = (d+1)a + 2d + 1 = N$. Moreover
+$a \equiv d + s \pmod{2d}$, and $a \ge d + 1$ (as $q \ge 0$ and $s \ge 1$),
+so $W = a + d + 1 \ge 2d + 2 > 2d$. (For $q \ge 1$ one has $a \ge 3d + 1$;
+the proofs below use only $a \ge d + 1$.) By \eqref{eq:triples}, the
+solutions of $x_1 + a x_2 - x_3 = c$ in $[1,N]^3$ are exactly the triples
+$T(x,k) = (x,\, k,\, x + a(k-1) + d)$ with $x, k \ge 1$ and
+$x + a(k-1) + d \le N$ (entries may repeat).
+
+Suppose, for contradiction, that $\chi \colon [1,N] \to \{0,1\}$ is a valid
+colouring, i.e.\ admits no monochromatic solution; by
+Lemma~\ref{lem:wlog} we may and do assume $\chi(1) = 0$. This
+\emph{standing assumption} --- a valid colouring $\chi$ of $[1,N]$ with
+$\chi(1) = 0$, together with the quantities $N$, $E$, $W$ above --- remains
+in force throughout Lemmas~\ref{lem:ub2-pairs}--\ref{lem:ub2-plateau};
+Lemmas~\ref{lem:ub2-rigidity} and~\ref{lem:2adic-b} are self-contained
+statements about patterns on $\mathbb{Z}_{2d}$ and $2$-adic valuations.
+
+\begin{lemma}[pair constraints]\label{lem:ub2-pairs}
+\begin{enumerate}
+\item[(a)] $\chi(d+1) = 1$.
+\item[(b)] (R0) There is no $x \in [1, N-d]$ with $\chi(x) = \chi(x+d) = 0$.
+\item[(c)] (R1) There is no $x \in [1, W]$ with $\chi(x) = \chi(x+E) = 1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(b) For $x \in [1, N-d]$, $T(x,1) = (x, 1, x+d)$ is a solution
+($x_3 = x + a \cdot 0 + d$). If $\chi(x) = \chi(x+d) = 0$, then, since
+$\chi(1) = 0$, the triple $T(x,1)$ is monochromatic of colour $0$ ---
+contradiction.
+
+(a) Apply (b) with $x = 1$: $T(1,1) = (1, 1, 1+d)$ is a solution
+($1 + d \le N$), and $\chi(1) = 0$, so $\chi(d+1) = 0$ would make it
+monochromatic; hence $\chi(d+1) = 1$.
+
+(c) For $x \in [1, W]$, $T(x, d+1) = (x, d+1, x+E)$ is a solution:
+$x + a\bigl((d+1)-1\bigr) + d = x + ad + d = x + d(a+1) = x + E$, and
+$x + E \le W + E = N$. If $\chi(x) = \chi(x+E) = 1$, then, since
+$\chi(d+1) = 1$ by (a), the triple $T(x, d+1)$ is monochromatic of colour
+$1$ --- contradiction.
+\end{proof}
+
+We refer to the constraints of Lemma~\ref{lem:ub2-pairs}(b) and (c) as R0
+and R1.
+
+\begin{lemma}[window periodicity]\label{lem:ub2-window}
+There is a function $\phi \colon \mathbb{Z}_{2d} \to \{0,1\}$ such that
+$\chi(x) = \phi(x \bmod 2d)$ for every $x \in [1, W]$. Moreover
+$\phi(1) = 0$ and $\phi(d+1) = 1$.
+\end{lemma}
+
+\begin{proof}
+\emph{Claim U (up-step): if $\chi(x) = 0$ and $1 \le x \le W - 2d$, then
+$\chi(x + 2d) = 0$.} Indeed: (i) $\chi(x) = 0$ and $x + d \le W \le N$
+imply $\chi(x + d) = 1$ by R0. (ii) $x + d \in [1, W]$, so R1 gives
+$\chi(x + d + E) = 0$. (iii) Apply R0 at position $x + d + E$: it lies in
+$[1, N-d]$ because $(x + d + E) + d = x + 2d + E \le W + E = N$ (using
+$x \le W - 2d$); since $\chi(x + d + E) = 0$, R0 gives
+$\chi(x + 2d + E) = 1$. (iv) Apply R1 at position $x + 2d \in [1, W]$:
+since $\chi(x + 2d + E) = 1$, R1 forces $\chi(x + 2d) = 0$. This proves
+Claim U.
+
+\emph{Claim D (down-step): if $\chi(y) = 0$ and $2d + 1 \le y \le W$, then
+$\chi(y - 2d) = 0$.} Indeed: (i) R0 at $y - d$ (note $y - d \ge d + 1 \ge 1$
+and $(y - d) + d = y \le W \le N$): $\chi(y) = 0$ forces $\chi(y - d) = 1$.
+(ii) R1 at $y - d \in [1, W]$: $\chi(y - d + E) = 0$. (iii) R0 at
+$y - 2d + E$ (note $y - 2d + E \ge E + 1 \ge 1$ and
+$(y - 2d + E) + d = y - d + E \le W + E = N$): $\chi(y - d + E) = 0$ forces
+$\chi(y - 2d + E) = 1$. (iv) R1 at $y - 2d \in [1, W]$:
+$\chi(y - 2d + E) = 1$ forces $\chi(y - 2d) = 0$. This proves Claim D.
+
+\emph{Class constancy.} Fix $\rho \in [1, 2d]$. The members of the residue
+class $\{x \equiv \rho \pmod{2d}\}$ inside $[1, W]$ are
+$z_j = \rho + 2dj$, $j = 0, \dots, \ell$, where
+$\ell := \lfloor (W - \rho)/(2d) \rfloor$; the list is nonempty since
+$\rho \le 2d < W$ (recall $W \ge 2d + 2$). Suppose some member $z_i$ has
+$\chi(z_i) = 0$. Applying Claim D repeatedly from $z_i$ (each intermediate
+member is $\le W$, and $\ge 2d + 1$ while $j \ge 1$) gives $\chi(z_j) = 0$
+for all $j \le i$; in particular $\chi(z_0) = \chi(\rho) = 0$. Applying
+Claim U repeatedly from $z_0$ (the step from $z_j$ to $z_{j+1}$ needs
+$z_j \le W - 2d$, which holds exactly when $z_{j+1} \le W$, i.e.\ whenever
+$z_{j+1}$ is a member) gives $\chi(z_j) = 0$ for all $j \le \ell$. Hence
+either all members are $0$ or none is: $\chi$ is constant on each residue
+class inside $[1, W]$. Define $\phi(\rho)$ to be that constant. Then
+$\phi(1) = \chi(1) = 0$, and $\phi(d+1) = \chi(d+1) = 1$ by
+Lemma~\ref{lem:ub2-pairs}(a) (both positions lie in $[1, W]$).
+\end{proof}
+
+\begin{lemma}[flip on the top block]\label{lem:ub2-flip}
+For every $x \in [1, W]$: $\chi(E + x) = 1 - \chi(x)$. Consequently
+$\chi(E + x) = 1 - \phi(x \bmod 2d)$ on the top block
+$[E+1, E+W] = [E+1, N]$, which together with
+Lemma~\ref{lem:ub2-window} determines $\chi$ on $[1, W] \cup [E+1, N]$.
+\end{lemma}
+
+\begin{proof}
+\emph{Case $\chi(x) = 1$}: R1 at $x \in [1, W]$ directly forbids
+$\chi(x + E) = 1$, so $\chi(E + x) = 0$.
+
+\emph{Case $\chi(x) = 0$ and $x \le a + 1$}: (i) $x + d \le a + d + 1 = W
+\le N$, so R0 gives $\chi(x + d) = 1$. (ii) R1 at $x + d \in [1, W]$ gives
+$\chi(x + d + E) = 0$. (iii) Apply R0 at position $x + E$: it lies in
+$[1, N-d]$ because $(x + E) + d = x + d + E \le (a+1) + d + E = N$; since
+$\chi(x + d + E) = 0$, R0 forbids $\chi(x + E) = 0$; hence
+$\chi(x + E) = 1$.
+
+\emph{Case $\chi(x) = 0$ and $a + 2 \le x \le W$}: (i)
+$x - d \ge a + 2 - d \ge 1$ (as $a \ge d + 1$), and R0 at $x - d$ forbids
+$\chi(x - d) = 0 = \chi(x)$; hence $\chi(x - d) = 1$. (ii) R1 at
+$x - d \in [1, W]$ gives $\chi(x - d + E) = 0$. (iii) R0 at $x - d + E$
+(note $(x - d + E) + d = x + E \le W + E = N$) forbids $\chi(x + E) = 0$;
+hence $\chi(x + E) = 1$.
+
+In all cases $\chi(E + x) = 1 - \chi(x)$; by Lemma~\ref{lem:ub2-window},
+$\chi(x) = \phi(x \bmod 2d)$ for $x \in [1, W]$.
+\end{proof}
+
+\begin{lemma}[antipodality of the window pattern]\label{lem:ub2-antipodal}
+$\phi(\rho + d) = 1 - \phi(\rho)$ for every $\rho \in \mathbb{Z}_{2d}$.
+\end{lemma}
+
+\begin{proof}
+It suffices to prove the identity for $\rho \in [1, d]$, since the pairs
+$\{\rho, \rho + d\}$ partition $\mathbb{Z}_{2d}$. For such $\rho$, both
+positions $\rho$ and $\rho + d$ lie in $[1, 2d]$, and $2d \le W$, so
+$\chi(\rho) = \phi(\rho)$ and $\chi(\rho + d) = \phi(\rho + d)$.
+
+\emph{Not both $0$}: if $\phi(\rho) = \phi(\rho + d) = 0$, then
+$\chi(\rho) = \chi(\rho + d) = 0$ with $\rho \le N - d$, contradicting R0.
+
+\emph{Not both $1$}: if $\phi(\rho) = \phi(\rho + d) = 1$, then by
+Lemma~\ref{lem:ub2-flip}, $\chi(E + \rho) = 0$ and
+$\chi(E + \rho + d) = 0$ (both $\rho$ and $\rho + d$ lie in $[1, W]$). The
+position $E + \rho$ lies in $[1, N - d]$, since
+$E + \rho + d \le E + 2d \le E + W = N$. So R0 is violated at $E + \rho$
+--- contradiction.
+
+Hence exactly one of $\phi(\rho)$, $\phi(\rho + d)$ is $0$, i.e.\
+$\phi(\rho + d) = 1 - \phi(\rho)$.
+\end{proof}
+
+\begin{lemma}[plateau-conflict triples]\label{lem:ub2-plateau}
+Under the standing assumption (a valid colouring $\chi$ of $[1,N]$ with
+$\chi(1) = 0$) and with the objects of
+Lemmas~\ref{lem:ub2-window}--\ref{lem:ub2-antipodal}, call $m \in [1, d+1]$
+an \emph{$s$-plateau} of colour $\kappa$ if
+$\phi(m) = \phi(m + s) = \kappa$ (indices modulo $2d$; note
+$m + s \le 2d$, so no wrap occurs). Then:
+\begin{enumerate}
+\item[(V)] there is no $s$-plateau of colour $1 - \phi(2)$;
+\item[(IV)] there is no $s$-plateau of colour $1 - \phi(d)$;
+\item[(Cb)] there is no pair $(i, m)$ with $i \in [1, d-1]$,
+$\phi(i) \ne \phi(i+1)$, and $m$ an $s$-plateau of colour $\phi(i+1)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Throughout the proof we use: $\chi(x) = \phi(x \bmod 2d)$ on $[1, W]$
+(Lemma~\ref{lem:ub2-window}); $\chi(E + x) = 1 - \phi(x \bmod 2d)$ for
+$x \in [1, W]$ (Lemma~\ref{lem:ub2-flip});
+$\phi(\rho + d) = 1 - \phi(\rho)$ (Lemma~\ref{lem:ub2-antipodal}); and
+$a \equiv d + s \pmod{2d}$, whence
+$\phi(a + m) = \phi(d + s + m) = 1 - \phi(m + s)$.
+
+(V): Suppose $\phi(m) = \phi(m + s) = 1 - \phi(2) =: \kappa$ for some
+$m \in [1, d+1]$. Consider the triple $T(m, d+2) = (m,\, d+2,\, E + a + m)$.
+It is a solution: $m + a\bigl((d+2) - 1\bigr) + d = m + (d+1)a + d
+= m + E + a$, and $E + a + m \le E + a + d + 1 = N$; all entries are
+$\ge 1$. Colours: $\chi(m) = \phi(m) = \kappa$ (as $m \le d + 1 \le W$);
+$\chi(d+2) = \phi(d+2) = 1 - \phi(2) = \kappa$ (as $d + 2 \le W$);
+$\chi\bigl(E + (a + m)\bigr) = 1 - \phi(a + m) = 1 - \bigl(1 - \phi(m + s)\bigr)
+= \phi(m + s) = \kappa$ (as $a + m \le a + d + 1 = W$, so
+Lemma~\ref{lem:ub2-flip} applies). The triple is monochromatic ---
+contradiction.
+
+(IV): Suppose $\phi(m) = \phi(m + s) = 1 - \phi(d)$ for some
+$m \in [1, d+1]$. Consider the triple $T(a + m, d) = (a + m,\, d,\, E + m)$.
+It is a solution: $(a + m) + a(d - 1) + d = da + d + m = E + m \le N$; all
+entries are $\ge 1$. Colours:
+$\chi(a + m) = \phi(a + m) = 1 - \phi(m + s) = \phi(d)$ (as $a + m \le W$);
+$\chi(d) = \phi(d)$ (as $d \le W$);
+$\chi(E + m) = 1 - \phi(m) = 1 - \bigl(1 - \phi(d)\bigr) = \phi(d)$ (as
+$m \le W$). The triple is monochromatic of colour $\phi(d)$ ---
+contradiction.
+
+(Cb): Suppose $i \in [1, d-1]$ with $\phi(i) \ne \phi(i+1) =: \kappa$, and
+$m \in [1, d+1]$ with $\phi(m) = \phi(m + s) = \kappa$. Let
+$y := (d + 1 - i)a + m$. Then
+$1 \le 2a + 1 \le y \le da + d + 1 = E + 1 \le N$. Consider two triples
+through $y$:
+\begin{align*}
+\alpha &:= T(y,\, i+1) = (y,\; i+1,\; E + a + m),
+&&\text{a solution, since } y + ai + d = (d+1)a + m + d = E + a + m \le N
+\ (m \le d+1);\\
+\beta &:= T(y,\, i) = (y,\; i,\; E + m),
+&&\text{a solution, since } y + a(i-1) + d = da + m + d = E + m \le N .
+\end{align*}
+Colours of the known cells: $\chi(i) = \phi(i) = 1 - \kappa$ and
+$\chi(i+1) = \phi(i+1) = \kappa$ (as $i + 1 \le d \le W$);
+$\chi(E + a + m) = 1 - \phi(a + m) = \phi(m + s) = \kappa$ (as
+$a + m \le W$); $\chi(E + m) = 1 - \phi(m) = 1 - \kappa$ (as $m \le W$).
+Now $\chi(y)$ is either $\kappa$ --- making $\alpha$ monochromatic of
+colour $\kappa$ --- or $1 - \kappa$ --- making $\beta$ monochromatic of
+colour $1 - \kappa$. Either way a monochromatic solution exists ---
+contradiction.
+\end{proof}
+
+\begin{lemma}[rigidity: $\phi$ must be $s$-antiperiodic]\label{lem:ub2-rigidity}
+Let $\phi \colon \mathbb{Z}_{2d} \to \{0,1\}$ be antipodal
+($\phi(\rho + d) = 1 - \phi(\rho)$) with $\phi(1) = 0$, and suppose that
+none of the configurations (V), (IV), (Cb) of
+Lemma~\ref{lem:ub2-plateau} occurs. Then $\phi(m + s) = 1 - \phi(m)$ for
+\emph{all} $m \in \mathbb{Z}_{2d}$; that is, $\phi$ is
+\emph{$s$-antiperiodic}.
+\end{lemma}
+
+\begin{proof}
+First, if $\phi(m^*) = \phi(m^* + s)$ for some $m^* \in \mathbb{Z}_{2d}$
+(take the representative $m^* \in [1, 2d]$), then there is an $s$-plateau
+with index in $[1, d+1]$: if $m^* \in [1, d+1]$, take $m = m^*$; if
+$m^* \in [d+2, 2d]$, take $m = m^* - d \in [2, d]$ --- by antipodality
+$\phi(m) = 1 - \phi(m^*)$ and $\phi(m + s) = 1 - \phi(m^* + s)$, so
+$\phi(m) = \phi(m + s)$: an in-range $s$-plateau (of the opposite colour).
+
+Now suppose, for contradiction, that some $s$-plateau exists; by the
+previous paragraph the set $K$ of colours of in-range $s$-plateaus
+($m \in [1, d+1]$) is nonempty. Since (V) does not occur, no in-range
+plateau has colour $1 - \phi(2)$; hence $K = \{\kappa\}$ with
+$\kappa := \phi(2)$. Since (IV) does not occur, $1 - \phi(d) \notin K$, so
+$\phi(d) = \kappa$.
+
+\emph{Case $\kappa = 1$}: then $\phi(1) = 0 \ne 1 = \phi(2)$, so $i = 1$
+(legal, since $d \ge 2$ gives $1 \le d - 1$) is a transition with
+$\phi(i + 1) = \kappa$, and an in-range plateau of colour $\kappa$ exists
+--- configuration (Cb) occurs, a contradiction.
+
+\emph{Case $\kappa = 0$}: then $\phi(1) = \phi(2) = \phi(d) = 0$.
+\emph{Sub-claim: $\phi \equiv 0$ on $[1, d]$.} For $d \in \{2, 3\}$ this is
+immediate --- the values $\phi(1) = \phi(2) = \phi(d) = 0$ already exhaust
+$[1, d]$ --- so the branch that follows is vacuous there. Otherwise, let
+$j$ be minimal in $[1, d]$ with $\phi(j) = 1$; then $3 \le j \le d - 1$.
+Since $\phi(d) = 0$, let $i$ be minimal in $[j, d-1]$ with
+$\phi(i + 1) = 0$; by minimality $\phi(i) = 1$ (for $i = j$ directly; for
+$i > j$, all of $\phi(j), \dots, \phi(i)$ equal $1$). Then
+$i \in [1, d-1]$, $\phi(i) \ne \phi(i+1) = 0 = \kappa$, and an in-range
+plateau of colour $\kappa$ exists --- configuration (Cb) occurs, a
+contradiction. This proves the sub-claim: $\phi \equiv 0$ on $[1, d]$, and
+hence, by antipodality, $\phi \equiv 1$ on $[d+1, 2d]$. But then
+$m = d + 1 \in [1, d+1]$ satisfies $\phi(d + 1) = 1$ and
+$\phi(d + 1 + s) = 1$ (since $d + 2 \le d + 1 + s \le 2d$, because
+$1 \le s \le d - 1$): an in-range plateau of colour $1$, so
+$1 \in K = \{0\}$ --- a contradiction.
+
+Both cases are impossible, so no $s$-plateau exists anywhere in
+$\mathbb{Z}_{2d}$, i.e.\ $\phi(m + s) = 1 - \phi(m)$ for all $m$.
+\end{proof}
+
+\begin{lemma}[$2$-adic obstruction and existence criterion]\label{lem:2adic-b}
+Let $d \ge 2$, $q \ge 0$, and $a = 2dq + d + s$.
+\begin{enumerate}
+\item[(a)] For $s \in [1, d-1]$, the existence condition
+$\vtwo(a) \le \vtwo(a - d)$ is equivalent to $\vtwo(s) \ne \vtwo(d)$.
+Moreover, the same computation covers $s = d$ (i.e.\ $r = 2d$): there the
+existence condition always fails, re-proving Lemma~\ref{lem:norm}(i), so
+that under the existence condition the regime $r \in [d+1, 2d]$ reduces to
+$s \in [1, d-1]$.
+\item[(b)] If $\vtwo(s) \ne \vtwo(d)$, then no
+$\phi \colon \mathbb{Z}_{2d} \to \{0,1\}$ can be simultaneously antipodal
+and $s$-antiperiodic.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Write $v := \vtwo(d)$ and $w := \vtwo(s)$, so that $a = 2dq + (d + s)$
+and $a - d = 2dq + s$, and note $\vtwo(2dq) \ge v + 1$ whenever $q \ge 1$
+(if $q = 0$ the term is absent).
+
+If $w < v$: $\vtwo(d + s) = w$ and $\vtwo(2dq) \ge v + 1 > w$, so
+$\vtwo(a) = w$; likewise $\vtwo(a - d) = \vtwo(2dq + s) = w$. Hence
+$\vtwo(a) = \vtwo(a - d)$: the existence condition holds.
+
+If $w > v$: $\vtwo(d + s) = v < \vtwo(2dq)$, so $\vtwo(a) = v$; and
+$\vtwo(a - d) \ge \min(v + 1,\, w) \ge v + 1 > \vtwo(a)$: the existence
+condition holds (strictly).
+
+If $w = v$: write $d = g d'$, $s = g s'$ with $g = \gcd(d, s)$; then
+$\vtwo(g) = v$ and $d'$, $s'$ are both odd, so $\vtwo(d + s) \ge v + 1$
+and hence $\vtwo(a) \ge v + 1$; but
+$\vtwo(a - d) = \vtwo(2dq + s) = v$ (since
+$\vtwo(2dq) \ge v + 1 > v = \vtwo(s)$). So $\vtwo(a) > \vtwo(a - d)$: the
+existence condition fails. This proves the equivalence for
+$s \in [1, d-1]$.
+
+Finally, the computation in the case $w = v$ applies verbatim to $s = d$:
+there $g = d$ and $d' = s' = 1$ are both odd, so again
+$\vtwo(a) > \vtwo(a - d)$. Thus $r = 2d$ never satisfies the existence
+condition, and, under the existence condition, the regime
+$r \in [d+1, 2d]$ reduces to $s \in [1, d-1]$.
+
+(b) Suppose $\phi$ is antipodal and $s$-antiperiodic:
+$\phi(x + d) = 1 - \phi(x)$ and $\phi(x + s) = 1 - \phi(x)$ for all
+$x \in \mathbb{Z}_{2d}$. Composing the two,
+$\phi\bigl(x + (d + s)\bigr) = \phi(x)$ and
+$\phi\bigl(x + (d - s)\bigr) = \phi(x)$: both $d + s$ and $d - s$ are
+periods of $\phi$. The set $P$ of periods of $\phi$ is a subgroup of
+$\mathbb{Z}_{2d}$, so $P$ contains the subgroup generated by $d - s$ and
+$d + s$, which is generated by $h := \gcd(d - s,\, d + s,\, 2d)$. With
+$g = \gcd(d, s)$ and $d = g d'$, $s = g s'$:
+$\gcd(d - s,\, d + s) = g \gcd(d' - s',\, d' + s')$, and
+$\gcd(d' - s',\, d' + s')$ divides both $2d'$ and $2s'$, hence divides
+$2 \gcd(d', s') = 2$. Since $\vtwo(s) \ne \vtwo(d)$, the integers $d'$ and
+$s'$ have opposite parities, so $d' + s'$ is odd, so
+$\gcd(d' - s',\, d' + s')$ is odd, hence equals $1$. Thus
+$\gcd(d - s,\, d + s) = g$, and $h = \gcd(g, 2d) = g$ (as $g \mid d$). So
+$g \in P$, and since $g \mid d$, also $d \in P$: $\phi(x + d) = \phi(x)$
+for all $x$. But antipodality says $\phi(x + d) = 1 - \phi(x)$ ---
+contradiction.
+\end{proof}
+
+\begin{theorem}[upper bound in the regime $r > d$]\label{thm:ub2}
+For every $d \ge 2$, $q \ge 0$ and $s \in [1, d-1]$ with
+$\vtwo(s) \ne \vtwo(d)$, put $a := 2dq + d + s$, so that $r = d + s > d$ ---
+equivalently, consider any $a$ for which $\Rad(a;\, a-d)$ exists
+and $r > d$. Then every $2$-colouring of $[1, N]$,
+$N = (a+3)d + a - (d-1)$, contains a monochromatic solution of
+$x_1 + a x_2 - x_3 = a - d$; that is,
+\[
+\Rad(a;\, a - d) \;\le\; (a+3)d + a - (d-1).
+\]
+\end{theorem}
+
+\begin{proof}
+Suppose $\chi \colon [1, N] \to \{0,1\}$ has no monochromatic solution;
+by Lemma~\ref{lem:wlog} we may assume $\chi(1) = 0$, and the standing
+assumption of this section is in force.
+Lemmas~\ref{lem:ub2-pairs}--\ref{lem:ub2-antipodal} produce the antipodal
+window pattern $\phi$ with $\phi(1) = 0$. Since $\chi$ is assumed valid,
+none of the configurations (V), (IV), (Cb) of
+Lemma~\ref{lem:ub2-plateau} can occur (each produces an explicit
+monochromatic solution inside $[1, N]$). By
+Lemma~\ref{lem:ub2-rigidity}, $\phi$ is $s$-antiperiodic. By
+Lemma~\ref{lem:2adic-b}(a) and (b), this contradicts the existence
+condition: $\vtwo(s) \ne \vtwo(d)$ holds, yet no antipodal
+$s$-antiperiodic pattern on $\mathbb{Z}_{2d}$ exists. Hence no such
+$\chi$ exists, and $\Rad(a;\, a - d) \le N$.
+\end{proof}
+
+Since $r > d$ gives $\min(r-1,\, d-1) = d - 1$, Theorem~\ref{thm:ub2} is
+exactly the upper bound required by Theorem~\ref{thm:main} in this regime;
+combined with the extremal family colouring of $[1, N-1]$ of
+Section~\ref{sec:family}, it pins
+$\Rad(a;\, a-d) = (a+3)d + a - \min(r-1,\, d-1)$ in the whole regime
+$r > d$.
+
+\begin{remark}
+All linear range conditions used in the proofs of
+Lemmas~\ref{lem:ub2-pairs}--\ref{lem:ub2-plateau} (each cited triple
+satisfies $x_3 = x_1 + a(x_2 - 1) + d$ with all entries in $[1, N]$) were
+verified symbolically above and, in addition, mechanically replayed at the
+boundary values of all free parameters for all $1769$ in-scope pairs
+$(a, d)$ with $d \le 16$, $a \le 400$ (including $q = 0$). Likewise, the
+case analysis of Lemma~\ref{lem:ub2-rigidity} was corroborated by
+exhaustive enumeration: for every $d \le 16$ and every $s$, among all
+$2^{d-1}$ antipodal patterns $\phi$ with $\phi(1) = 0$, those avoiding the
+three configurations of Lemma~\ref{lem:ub2-plateau} are exactly the
+$s$-antiperiodic ones --- and, in accordance with
+Lemma~\ref{lem:2adic-b}, none exists when $\vtwo(s) \ne \vtwo(d)$. See
+Section~\ref{sec:comp}.
+\end{remark}

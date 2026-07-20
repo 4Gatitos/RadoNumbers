@@ -1,0 +1,425 @@
+% sec_lb.tex --- the extremal family colouring and the lower bound for d >= 2.
+% This file is \input into Section 4 of the paper. It relies on the host results
+% \eqref{eq:triples} (solution parametrisation), Lemma~\ref{lem:norm} (normalisation),
+% Lemma~\ref{lem:wlog} (colour swap) and Lemma~\ref{lem:mono} (monotonicity).
+
+Throughout this section fix $d \ge 2$ and $a \ge d+1$ with $\vtwo(a) \le \vtwo(a-d)$,
+and write $a = 2dq + r$ with $q \ge 0$ and $r \in [1, 2d-1]$, as provided by
+Lemma~\ref{lem:norm}. We distinguish two regimes. In \emph{regime 1} we have
+$r \le d$; then $q \ge 1$, since $q = 0$ would give $a = r \le d$, contradicting
+$a \ge d+1$; in particular $a \ge 2d+1$ in regime 1. In \emph{regime 2} we have
+$r \ge d+1$; we set $s = r - d \in [1, d-1]$, and here $q \ge 0$, the value $q = 0$
+occurring precisely when $d+1 \le a \le 2d-1$. Throughout we set
+\[
+  t = \max(d,\, 2d-r), \qquad N^{*} = (a+3)d + a - \min(r-1,\, d-1) - 1,
+\]
+so that $t = 2d-r \in [d, 2d-1]$ and $N^{*} = (a+3)d + a - r$ in regime 1, while
+$t = d$ and $N^{*} = (a+2)d + a$ in regime 2 (as $\min(r-1, d-1)$ equals $r-1$ for
+$r \le d$ and $d-1$ for $r \ge d+1$). Recall from \eqref{eq:triples} that the
+solutions of $x_1 + a x_2 - x_3 = a - d$ with all values in $[1, N]$ are exactly
+the triples $(x, k, y)$ with $y = x + a(k-1) + d$ and $x, k, y \in [1, N]$. We
+shall exhibit a $2$-colouring $\chi$ of $[1, N^{*}]$ admitting no monochromatic
+such triple. The colouring is defined by an explicit run-length list
+(Lemma~\ref{lem:lb-family}) and then rewritten in a \emph{chunk--offset normal
+form} $\chi(x) = \alpha(w(x)-1)$ (Lemma~\ref{lem:lb-normalform}); for every
+in-range triple the offset increment obeys a trichotomy
+(Lemma~\ref{lem:lb-trichotomy}), forcing in particular $k \le d+2$, and each of
+the three resulting cases leads to a colour conflict (Theorem~\ref{thm:lb}). The
+analysis is uniform in $q \ge 1$ (regime 1), respectively $q \ge 0$ (regime 2),
+and covers the edge values $r = 1$, $r = d$, $r = d+1$, $r = 2d-1$ and $a = d+1$.
+
+\begin{lemma}[the extremal family colouring]\label{lem:lb-family}
+Keep the notation above, with $r \in [1, 2d-1]$. Let $\chi$ be the colouring of an
+initial interval of the positive integers obtained by concatenating runs of
+constant colour, the colours alternating and the first run having colour $1$ (so the
+run of index $j$ has colour $1$ if $j$ is odd and colour $0$ if $j$ is even), with
+run-length sequence
+\begin{align*}
+  \text{regime 1 } (r \le d)\colon &\quad
+    [d]^{2q+1}\;\bigl([d+r]\,[d]^{2q-1}\bigr)^{d-1}\;[d+r]\,[d]^{2q+1};\\
+  \text{regime 2 } (r > d,\ s = r-d)\colon &\quad
+    [d]^{2q+2}\,[s]\;\bigl([d]^{2q+1}\,[s]\bigr)^{d-1}\;[d]^{2q+2}\,[s],
+\end{align*}
+where $[\ell]^{m}$ abbreviates $m$ consecutive runs of length $\ell$ and
+$[\ell] = [\ell]^{1}$. Then:
+(a) every run length is at least $1$;
+(b) the total length equals $N^{*}$, so that $\chi \colon [1, N^{*}] \to \{0,1\}$;
+(c) in regime 1 the $i$-th long $(d+r)$-run has run index $2qi + 2$, which is
+even, hence colour $0$; in regime 2 every $s$-run except the last has odd index,
+hence colour $1$, while the final $s$-run has even index, hence colour $0$.
+\end{lemma}
+
+\begin{proof}
+(a) In regime 1: $d \ge 2$, $d + r \ge 3$, and $2q - 1 \ge 1$ because $q \ge 1$;
+the multiplicities $2q+1$, $2q-1$ are positive. In regime 2: $d \ge 2$,
+$s \in [1, d-1]$, and $2q+1 \ge 1$, $2q+2 \ge 2$ for $q \ge 0$.
+
+(b) Regime 1: using $2dq = a - r$, the total length is
+\[
+  2\,d(2q+1) + d(d+r) + (d-1)\,d(2q-1)
+  = (4dq + 2d) + (d^{2} + dr) + (2qd^{2} - d^{2} - 2qd + d)
+  = 2qd^{2} + dr + 3d + 2dq,
+\]
+while
+$N^{*} = (a+3)d + a - r = (2dq + r + 3)d + 2dq = 2qd^{2} + rd + 3d + 2dq$; the two
+agree. Regime 2: using $2dq = a - d - s$ we have $d(2q+2) = a + d - s$ and
+$d(2q+1) = a - s$, so the total length is
+\[
+  2(a + d - s) + (d-1)(a - s) + (d+1)s
+  = 2a + 2d - 2s + (d-1)a - (d-1)s + (d+1)s
+  = (d+1)a + 2d,
+\]
+since the coefficient of $s$ is $-2 - (d-1) + (d+1) = 0$; and
+$(d+1)a + 2d = ad + a + 2d = (a+2)d + a = N^{*}$.
+
+(c) Regime 1: the number of runs strictly preceding the $i$-th long run is
+$(2q+1) + (i-1)\bigl(1 + (2q-1)\bigr) = (2q+1) + 2q(i-1)$, so its index is
+$2qi + 2$, which is even; hence colour $0$. Regime 2: the initial group
+$[d]^{2q+2}\,[s]$ contributes $2q+3$ runs, so the first $s$-run has index $2q+3$,
+odd: colour $1$. Each subsequent middle group $[d]^{2q+1}\,[s]$ contributes $2q+2$
+runs, so the $s$-run closing the $i$-th middle group ($1 \le i \le d-1$) has index
+$(2q+3) + i(2q+2)$, odd $+$ even $=$ odd: colour $1$. In the final group, the first
+$d$-run has index $(2q+3) + (d-1)(2q+2) + 1$, which is even (odd $+$ even $+ 1$);
+its last $d$-run has index $(2q+3) + d(2q+2)$, odd; and the final $s$-run has
+index $(2q+3) + d(2q+2) + 1$, even: colour $0$.
+\end{proof}
+
+\begin{lemma}[chunk--offset normal form]\label{lem:lb-normalform}
+Keep the notation of Lemma~\ref{lem:lb-family}. Define the \emph{jump points}
+$p_j = ja + t$ for $j = 1, \dots, d$, the \emph{jump count}
+$J(x) = \#\{\, j \in [1, d] : x > p_j \,\}$, the \emph{offset}
+$w(x) = x - a\,J(x)$, and
+\[
+  \alpha(u) =
+  \begin{cases}
+    1 & \text{if } u \bmod 2d \in [0,\, d-1],\\
+    0 & \text{if } u \bmod 2d \in [d,\, 2d-1].
+  \end{cases}
+\]
+Then:
+(I) $\chi(x) = \alpha\bigl(w(x) - 1\bigr)$ for every $x \in [1, N^{*}]$.
+(II) (offset ranges) $J(x) = 0$ if and only if $x \in [1, a+t]$, and then
+$w(x) = x \in [1, a+t]$; for $j \in [1, d-1]$, $J(x) = j$ if and only if
+$x \in [ja+t+1,\, (j+1)a+t]$, and then $w(x) \in [t+1,\, a+t]$; and $J(x) = d$ if
+and only if $x \in [da+t+1,\, N^{*}]$, and then $w(x) \in [t+1,\, a+t+d]$. In
+particular $w(z) \ge 1$ for every $z \in [1, N^{*}]$; moreover $w(z) \le a+t+d$
+always, $w(z) \ge t+1$ whenever $J(z) \ge 1$, and $w(z) \le a+t$ whenever
+$J(z) \le d-1$.
+\end{lemma}
+
+\begin{proof}
+We use two elementary facts.
+\emph{Fact A: $\alpha(u + d) = 1 - \alpha(u)$ for every integer $u$.} Indeed,
+write $u = 2dm + v$ with $v \in [0, 2d)$: if $v < d$ then
+$(u+d) \bmod 2d = v + d \in [d, 2d)$, and if $v \ge d$ then
+$(u+d) \bmod 2d = v - d \in [0, d)$.
+\emph{Fact B: if $u \equiv 0 \pmod{2d}$ then
+$\alpha(u) = \alpha(u+1) = \dots = \alpha(u+d-1) = 1$, and if
+$u \equiv d \pmod{2d}$ then those $d$ values all have $\alpha = 0$.}
+Throughout the proof we use $a \equiv r \pmod{2d}$.
+
+We first prove (II). We have $0 < p_1 < p_2 < \dots < p_d$ and, in both regimes,
+$N^{*} - p_d = N^{*} - da - t = a + d > 0$: in regime 1,
+$N^{*} - da - (2d - r) = (ad + a + 3d - r) - ad - 2d + r = a + d$; in regime 2,
+$N^{*} - da - d = (ad + a + 2d) - ad - d = a + d$. Hence the level sets
+$\{x \in [1, N^{*}] : J(x) = j\}$ are exactly the stated intervals, and
+$w(x) = x - ja$ on the $j$-th of them; subtracting $ja$ from those intervals gives
+the stated offset ranges ($[ja+t+1, (j+1)a+t] - ja = [t+1, a+t]$ and
+$[da+t+1, N^{*}] - da = [t+1, a+t+d]$). For the explicit lower bound: if
+$J(z) = 0$ then $w(z) = z \ge 1$, and if $J(z) \ge 1$ then
+$w(z) \ge t + 1 \ge 1$; so $w(z) \ge 1$ for every $z$. The remaining assertions
+are read off directly from the three ranges.
+
+\emph{Proof of (I) in regime 1} ($t = 2d - r$, $q \ge 1$). By
+Lemma~\ref{lem:lb-family}, $[1, N^{*}]$ decomposes into the consecutive segments
+\[
+  S_0 = [1,\, a+d-r], \qquad
+  L_i = [ia+d-r+1,\, ia+2d] \ (i = 1, \dots, d), \qquad
+  T_i = [ia+2d+1,\, (i+1)a+d-r] \ (i \le d-1),
+\]
+and $T_d = [da+2d+1,\, N^{*}]$. Here $S_0$ consists of the initial $2q+1$
+$d$-runs, of total length $d(2q+1) = 2dq + d = a + d - r$; each $L_i$ is the
+$i$-th long run, of length $d + r$; each $T_i$ with $i \le d-1$ has length
+$a - d - r = d(2q-1)$, and $T_d$ has length
+$N^{*} - da - 2d = a + d - r = d(2q+1)$. Consecutiveness: the segment before
+$L_1$ ends at $a+d-r$, and
+$\operatorname{end}(S_0) + 1 = a+d-r+1 = \operatorname{start}(L_1)$,
+$\operatorname{end}(L_i) + 1 = ia+2d+1 = \operatorname{start}(T_i)$,
+$\operatorname{end}(T_i) + 1 = (i+1)a+d-r+1 = \operatorname{start}(L_{i+1})$, and
+$\operatorname{end}(T_d) = N^{*}$. So the segments partition $[1, N^{*}]$.
+
+\emph{Jump counts per segment.} Here $p_j = ja + 2d - r$. On $S_0$:
+$x \le a+d-r < a+2d-r = p_1$, so $J = 0$. Each $L_i$ splits at $p_i$; note
+$ia+d-r+1 \le p_i \le ia+2d-1$ since $d \ge 1$ and $r \ge 1$. On
+$L_i^{-} = [ia+d-r+1,\, p_i]$ we have
+$p_{i-1} = (i-1)a + 2d - r < ia + d - r + 1$ if and only if $2d < a + d + 1$, i.e.\
+$d \le a$, which is true; so $J = i - 1$ on $L_i^{-}$. On
+$L_i^{+} = [p_i + 1,\, ia+2d]$ we have $J = i$ (for $i < d$ this uses
+$ia + 2d \le p_{i+1} = ia + a + 2d - r$, i.e.\ $r \le a$, true). On $T_i$:
+$p_i < ia + 2d + 1$ and, for $i < d$, $(i+1)a + d - r < p_{i+1}$, so $J = i$; on
+$T_d$, $J = d$.
+
+\emph{Phases.} Write $u(x) = w(x) - 1$. On $S_0$: $u = x - 1$ ranges over
+$[0,\, d(2q+1) - 1]$, and $S_0$ consists of the $d$-runs
+$R_m = [(m-1)d+1,\, md]$, $m = 1, \dots, 2q+1$, coloured $1$ for $m$ odd and $0$
+for $m$ even (their global run indices are $1, \dots, 2q+1$). For $x \in R_m$,
+$u = (m-1)d + v$ with $v \in [0, d-1]$; if $m$ is odd then
+$(m-1)d \equiv 0 \pmod{2d}$ and Fact~B gives $\alpha = 1$; if $m$ is even then
+$(m-1)d \equiv d$ and $\alpha = 0$. This matches $\chi$. On $L_i^{-}$:
+$u = x - 1 - (i-1)a \in [a+d-r,\, a+2d-r-1]$, a set of $d$ consecutive integers
+the first of which is $\equiv r + d - r = d \pmod{2d}$; by Fact~B, $\alpha = 0$ on
+all of $L_i^{-}$. On $L_i^{+}$: $u = x - 1 - ia \in [2d-r,\, 2d-1]$, a subset of
+$[d,\, 2d-1]$ because $r \le d$; so $\alpha = 0$. Hence $\alpha = 0$ on the whole
+long run, matching its colour $0$ (Lemma~\ref{lem:lb-family}(c)). On $T_i$:
+$u = x - 1 - ia \in [2d,\, 2d + M - 1]$ with $M = d(2q-1)$ for $i < d$ and
+$M = d(2q+1)$ for $i = d$; thus $u - 2d$ starts at $0$, and $T_i$ consists of
+consecutive $d$-runs whose first has global index $2qi + 3$ (odd, colour $1$: it is
+the run following the $i$-th long run, whose index is $2qi + 2$ by
+Lemma~\ref{lem:lb-family}(c)). Exactly as on $S_0$, the $d$-blocks are aligned
+($u \equiv 0 \pmod{2d}$ at the start of $T_i$) and $\alpha$ matches the
+alternating colours on all of $T_i$.
+
+\emph{Proof of (I) in regime 2} ($t = d$, $s = r - d \in [1, d-1]$, $q \ge 0$).
+Segments:
+\[
+  C_0^{\mathrm{b}} = [1,\, a+d-s], \qquad
+  C_0^{\mathrm{s}} = [a+d-s+1,\, a+d],
+\]
+and for $i = 1, \dots, d-1$:
+\[
+  C_i^{\mathrm{b}} = [ia+d+1,\, (i+1)a+d-s], \qquad
+  C_i^{\mathrm{s}} = [(i+1)a+d-s+1,\, (i+1)a+d],
+\]
+and finally
+\[
+  F^{\mathrm{b}} = [da+d+1,\, da+a+2d-s], \qquad
+  F^{\mathrm{s}} = [da+a+2d-s+1,\, N^{*}].
+\]
+Here $C_0^{\mathrm{b}}$ consists of the initial $2q+2$ $d$-runs, of length
+$d(2q+2) = (a - d - s) + 2d = a + d - s$; $C_0^{\mathrm{s}}$ is the first $s$-run;
+$C_i^{\mathrm{b}}$ consists of $2q+1$ $d$-runs, of length $a - s = d(2q+1)$;
+$C_i^{\mathrm{s}}$ is an $s$-run; $F^{\mathrm{b}}$ consists of $2q+2$ $d$-runs, of
+length $a + d - s = d(2q+2)$; and $F^{\mathrm{s}}$ is the final $s$-run (since
+$N^{*} = da + a + 2d$, its length is $s$). These segments are consecutive and
+partition $[1, N^{*}]$.
+
+\emph{Jump counts.} Here $p_j = ja + d$. On
+$C_0^{\mathrm{b}} \cup C_0^{\mathrm{s}} = [1, a+d] = [1, p_1]$: $J = 0$. On
+$C_i^{\mathrm{b}} \cup C_i^{\mathrm{s}} = [ia+d+1,\, (i+1)a+d] = [p_i+1,\, p_{i+1}]$:
+$J = i$. On $F^{\mathrm{b}} \cup F^{\mathrm{s}} = [p_d+1,\, N^{*}]$: $J = d$.
+
+\emph{Phases} ($u = w - 1$; note $a \equiv r = d + s \pmod{2d}$). On
+$C_0^{\mathrm{b}}$: $u = x - 1 \in [0,\, d(2q+2) - 1]$ with $d(2q+2) = 2d(q+1)$;
+the $d$-blocks are aligned starting at phase $0$, so $\alpha$ alternates
+$1, 0, 1, \dots$ run by run, matching the global run indices $1, \dots, 2q+2$ (odd
+index $=$ colour $1$). On $C_0^{\mathrm{s}}$: $u = x - 1 \in [a+d-s,\, a+d-1]$;
+since $a + d - s = 2d(q+1) \equiv 0 \pmod{2d}$, we get
+$u \bmod 2d \in [0,\, s-1]$, a subset of $[0,\, d-1]$ (as $s \le d-1$): so
+$\alpha = 1$, matching colour $1$ (index $2q+3$, odd, by
+Lemma~\ref{lem:lb-family}(c)). On $C_i^{\mathrm{b}}$:
+$u = x - 1 - ia \in [d,\, d + d(2q+1) - 1]$; the $d$-blocks are aligned starting
+at phase $d$, so $\alpha$ alternates $0, 1, 0, \dots$, matching the colours, since
+the first run of $C_i^{\mathrm{b}}$ has even global index
+$(2q+3) + (i-1)(2q+2) + 1$ (odd $+$ even $+ 1$). On $C_i^{\mathrm{s}}$:
+$u = x - 1 - ia \in [d+a-s,\, d+a-1]$; since
+$d + a - s \equiv d + (d+s) - s = 2d \equiv 0 \pmod{2d}$, we get
+$u \bmod 2d \in [0,\, s-1]$: so $\alpha = 1$, matching colour $1$ (index
+$(2q+3) + i(2q+2)$, odd). On $F^{\mathrm{b}}$:
+$u = x - 1 - da \in [d,\, d + 2d(q+1) - 1]$; the $d$-blocks are aligned starting
+at phase $d$, so $\alpha$ alternates $0, 1, \dots, 1$ over the $2q+2$ runs, ending
+with $\alpha = 1$, matching the colours (the first run has even index
+$(2q+3) + (d-1)(2q+2) + 1$, colour $0$; the last has odd index
+$(2q+3) + d(2q+2)$, colour $1$). On $F^{\mathrm{s}}$:
+$u = x - 1 - da \in [d + 2d(q+1),\, d + 2d(q+1) + s - 1]$, so
+$u \bmod 2d \in [d,\, d+s-1]$, a subset of $[d,\, 2d-1]$ (as $s \le d-1$): so
+$\alpha = 0$, matching the final $s$-run's colour $0$ (index
+$(2q+3) + d(2q+2) + 1$, even).
+\end{proof}
+
+\begin{lemma}[colours of the small integers]\label{lem:lb-small}
+With $\chi$ as above ($d \ge 2$, $r \in [1, 2d-1]$): $\chi(k) = 1$ for
+$1 \le k \le d$, and $\chi(k) = 0$ for $k \in \{d+1,\, d+2\}$.
+\end{lemma}
+
+\begin{proof}
+Since $a \ge d+1$ and $t \ge d$, we have $a + t \ge 2d + 1 > d + 2$, the last
+inequality because $d \ge 2$ (indeed $2d + 1 > d + 2$ if and only if $d > 1$).
+Hence every $k \le d+2$ satisfies $k \le a + t = p_1$, so $J(k) = 0$ and
+$w(k) = k$ (Lemma~\ref{lem:lb-normalform}(II)); also $d + 2 < a + t \le N^{*}$, so
+$\chi(k)$ is defined. By Lemma~\ref{lem:lb-normalform}(I),
+$\chi(k) = \alpha(k-1)$. For $1 \le k \le d$: $k - 1 \in [0,\, d-1]$, so
+$\alpha = 1$. For $k \in \{d+1,\, d+2\}$: $k - 1 \in \{d,\, d+1\}$, and
+$d + 1 \le 2d - 1$ because $d \ge 2$, so $k - 1 \in [d,\, 2d-1]$ and $\alpha = 0$.
+(This is the only place where the hypothesis $d \ge 2$ is used, and it is sharp:
+for $d = 1$ one has $\chi(d+2) = \chi(3) = 1$, and the proof of
+Theorem~\ref{thm:lb} breaks precisely in Case $n = +1$, sub-case $J(y) = d$; see
+Remark~\ref{rem:lb-d1}.)
+\end{proof}
+
+\begin{lemma}[jump-count trichotomy]\label{lem:lb-trichotomy}
+Let $x, y \in [1, N^{*}]$ with $y = x + a(k-1) + d$ for some integer $k \ge 1$.
+Put $\Delta J = J(y) - J(x)$ and $n = k - 1 - \Delta J$. Then
+$w(y) = w(x) + na + d$, $\Delta J \ge 0$, and $n \in \{-1,\, 0,\, +1\}$.
+Consequently $k = n + 1 + \Delta J \le d + 2$ for every in-range triple.
+\end{lemma}
+
+\begin{proof}
+The identity:
+$w(y) - w(x) = \bigl(y - a J(y)\bigr) - \bigl(x - a J(x)\bigr)
+= (y - x) - a\,\Delta J = a(k-1) + d - a\,\Delta J = na + d$. And $\Delta J \ge 0$
+because $y > x$ (as $a(k-1) + d > 0$) and $J$ is non-decreasing.
+
+Suppose $n \ge 2$. Then $w(y) = w(x) + na + d \ge 1 + 2a + d$, using
+$w(x) \ge 1$ (Lemma~\ref{lem:lb-normalform}(II)). But $w(y) \le a + t + d$ always
+(Lemma~\ref{lem:lb-normalform}(II)), so $2a + d + 1 \le a + t + d$, i.e.\
+$a + 1 \le t$. In regime 1, $a \ge 2d+1$ while $t = 2d - r \le 2d - 1$, so
+$a + 1 \ge 2d + 2 > t$: contradiction. In regime 2, $t = d < d + 2 \le a + 1$:
+contradiction.
+
+Suppose $n \le -2$. Then $\Delta J = k - 1 - n \ge k + 1 \ge 2$. Hence
+$J(y) = J(x) + \Delta J \ge 2 \ge 1$, so $w(y) \ge t + 1$
+(Lemma~\ref{lem:lb-normalform}(II)); and $J(x) = J(y) - \Delta J \le d - 2 \le d - 1$,
+so $w(x) \le a + t$ (Lemma~\ref{lem:lb-normalform}(II)). Then
+\[
+  t + 1 \le w(y) = w(x) + na + d \le (a + t) - 2a + d = t - (a - d) \le t - 1,
+\]
+since $a \ge d + 1$: contradiction.
+
+So $n \in \{-1, 0, 1\}$. Finally $\Delta J \le J(y) \le d$ gives
+$k = n + 1 + \Delta J \le 1 + 1 + d = d + 2$.
+\end{proof}
+
+\begin{theorem}[lower bound for $d \ge 2$]\label{thm:lb}
+Let $d \ge 2$ and $a \ge d+1$ with $\vtwo(a) \le \vtwo(a-d)$, and let $r$, $t$,
+$N^{*}$, $\chi$ be as above. Then $\chi$ is a $2$-colouring of $[1, N^{*}]$
+containing no monochromatic triple $(x, k, y)$ with $y = x + a(k-1) + d$ and
+$x, k, y \in [1, N^{*}]$. Consequently
+\[
+  \Rad(a;\, a-d) \;\ge\; N^{*} + 1 \;=\; (a+3)d + a - \min(r-1,\, d-1),
+\]
+i.e.\ the value asserted in Theorem~\ref{thm:main} is a lower bound for
+$\Rad(a;\, a-d)$ for every such pair $(a, d)$.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:norm} we have $r \in [1, 2d-1]$, so
+Lemmas~\ref{lem:lb-family}--\ref{lem:lb-trichotomy} apply. Suppose, for
+contradiction, that $x$, $k$ and $y = x + a(k-1) + d$ all lie in $[1, N^{*}]$ and
+$\chi(x) = \chi(k) = \chi(y)$. Let $\Delta J = J(y) - J(x)$ and
+$n = k - 1 - \Delta J$; by Lemma~\ref{lem:lb-trichotomy}, $n \in \{-1, 0, 1\}$ and
+$w(y) = w(x) + na + d$. Write $\alpha$, $w$, $J$ as in
+Lemma~\ref{lem:lb-normalform} and recall $\chi(z) = \alpha\bigl(w(z) - 1\bigr)$
+for all $z \in [1, N^{*}]$; Facts A and B below refer to the proof of
+Lemma~\ref{lem:lb-normalform}.
+
+\emph{Case $n = 0$.} Then $w(y) = w(x) + d$, so
+$\chi(y) = \alpha\bigl(w(x) - 1 + d\bigr) = 1 - \alpha\bigl(w(x) - 1\bigr)
+= 1 - \chi(x)$ by Fact~A. Hence $\chi(x) \ne \chi(y)$: contradiction.
+
+\emph{Case $n = -1$, i.e.\ $\Delta J = k$.} Then $k = \Delta J \le J(y) \le d$, so
+$\chi(k) = 1$ by Lemma~\ref{lem:lb-small}; the common colour is $1$. Also
+$J(y) = J(x) + k \ge 1$, so $w(y) \ge t + 1$; and $J(x) = J(y) - k \le d - 1$, so
+$w(x) \le a + t$ (Lemma~\ref{lem:lb-normalform}(II)). From
+$w(y) = w(x) - (a - d)$ we get $w(x) \ge w(y) + a - d \ge a + t + 1 - d$ and
+$w(y) \le (a + t) - (a - d) = t + d$. Now:
+in regime 1 ($t = 2d - r$), $w(x) - 1$ lies in $[a + t - d,\, a + t - 1]$, a set
+of $d$ consecutive integers the first of which satisfies
+$a + t - d = a + d - r \equiv r + d - r = d \pmod{2d}$; by Fact~B,
+$\alpha\bigl(w(x) - 1\bigr) = 0$, i.e.\ $\chi(x) = 0 \ne 1$: contradiction.
+In regime 2 ($t = d$), $w(y) - 1$ lies in $[t,\, t + d - 1] = [d,\, 2d - 1]$,
+already inside $[0, 2d)$, so $\alpha\bigl(w(y) - 1\bigr) = 0$, i.e.\
+$\chi(y) = 0 \ne 1$: contradiction.
+
+\emph{Case $n = +1$, i.e.\ $\Delta J = k - 2$.} Since $\Delta J \ge 0$, we have
+$k \ge 2$. Here $w(y) = w(x) + a + d$. Since $w(y) \le a + t + d$ always
+(Lemma~\ref{lem:lb-normalform}(II)), $w(x) \le t$; but every $z$ with
+$J(z) \ge 1$ has $w(z) \ge t + 1$, so $J(x) = 0$ and $x = w(x) \in [1, t]$. Hence
+$\Delta J = J(y) = k - 2$.
+
+\emph{Sub-case $J(y) \le d - 1$.} Then $w(y) \le a + t$
+(Lemma~\ref{lem:lb-normalform}(II)), so $x = w(y) - a - d \le t - d$. In regime 2,
+$t = d$ gives $x \le 0$: impossible. In regime 1,
+$x \in [1,\, t - d] = [1,\, d - r]$ (nonempty only if $r \le d - 1$). Then
+$\chi(x) = \alpha(x - 1)$ with $x - 1 \in [0,\, d - r - 1]$, a subset of
+$[0,\, d - 1]$: $\chi(x) = 1$. And
+$w(y) - 1 = x + a + d - 1 \equiv (x - 1) + r + d \pmod{2d}$, with
+$(x - 1) + r + d \in [r + d,\, 2d - 1]$, a subset of $[d,\, 2d - 1]$:
+$\chi(y) = 0$. So $\chi(x) \ne \chi(y)$: contradiction.
+
+\emph{Sub-case $J(y) = d$.} Then $k - 2 = d$, so $k = d + 2$ and $\chi(k) = 0$ by
+Lemma~\ref{lem:lb-small} (here $d + 2 \le 2d$, i.e.\ $d \ge 2$, is used); the
+common colour is $0$, so $\chi(x) = 0$ is forced. In regime 2,
+$x \in [1,\, t] = [1,\, d]$, so $\chi(x) = \alpha(x - 1)$ with
+$x - 1 \in [0,\, d - 1]$: $\chi(x) = 1 \ne 0$: contradiction. In regime 1,
+$x \in [1,\, t] = [1,\, 2d - r]$, so $x - 1 \in [0,\, 2d - r - 1]$, all inside
+$[0, 2d)$; thus $\chi(x) = 0$ requires $x - 1 \in [d,\, 2d - r - 1]$. If $r = d$
+this interval is empty, so $\chi(x) = 1 \ne 0$: contradiction. If $r \le d - 1$,
+then $x \in [d + 1,\, 2d - r]$, and
+$w(y) - 1 = x + a + d - 1 \equiv (x - 1) + r + d \pmod{2d}$, with
+$(x - 1) + r + d \in [2d + r,\, 3d - 1]$; subtracting $2d$, the residues lie in
+$[r,\, d - 1]$, a subset of $[0,\, d - 1]$: $\chi(y) = 1 \ne 0$: contradiction.
+
+All cases being contradictory, $\chi$ contains no monochromatic triple. By the
+parametrisation \eqref{eq:triples}, $\chi$ is therefore a $2$-colouring of
+$[1, N^{*}]$ with no monochromatic solution of $x_1 + a x_2 - x_3 = a - d$; its
+restriction to $[1, N]$ is such a colouring of $[1, N]$ for every $N \le N^{*}$.
+Combining with monotonicity (Lemma~\ref{lem:mono}) gives
+$\Rad(a;\, a - d) > N^{*}$, that is,
+\[
+  \Rad(a;\, a - d) \;\ge\; N^{*} + 1 \;=\; (a+3)d + a - \min(r-1,\, d-1). \qedhere
+\]
+\end{proof}
+
+\begin{remark}[sharpness of $d \ge 2$; consistency with the case $d = 1$]\label{rem:lb-d1}
+For $d = 1$ (where $r = 1$, regime 1, $t = 1$, and the existence condition forces
+$a$ odd, with $q = (a-1)/2$) the same construction and the entire argument go
+through \emph{except} for the single step $\chi(d + 2) = 0$ in
+Lemma~\ref{lem:lb-small}, used in Case $n = +1$, sub-case $J(y) = d$ of the proof
+of Theorem~\ref{thm:lb}, which requires $d + 2 \le 2d$. For $d = 1$ one has
+instead $\chi(3) = \alpha(2) = 1$ (as $2 \equiv 0 \pmod 2$), and the triple
+$(x, k, y) = (1,\, 3,\, 2a + 2)$ is monochromatic of colour $1$ in the
+length-$(2a+2)$ construction: $x = 1 = t$ lies in the initial chunk with
+$\chi(1) = \alpha(0) = 1$; and $y = 1 + 2a + 1 = 2a + 2 = N^{*}$ has
+$J(y) = 1 = d$ and $w(y) = y - a = a + 2$, with
+$w(y) - 1 = a + 1 \equiv 0 \pmod 2$ because $a$ is odd, so $\chi(y) = 1$. This is
+the unique failure mode, and it is consistent with the value
+$\Rad(a;\, a - 1) = 2a + 2$ established for $d = 1$: one has
+$2a + 2 = N^{*}\big|_{d=1}$, exactly one below the value
+$\bigl((a+3)d + a - \min(r-1, d-1)\bigr)\big|_{d=1} = 2a + 3$ that the general
+formula would predict at $d = 1$.
+This confirms that the case analysis in the proof of Theorem~\ref{thm:lb} is
+tight and that $d \ge 2$ is exactly the needed hypothesis.
+\end{remark}
+
+\begin{remark}[computational verification]\label{rem:lb-comp}
+All lemmas above and every intermediate inequality in their proofs were verified
+computationally before being written up. The chunk--offset normal form of
+Lemma~\ref{lem:lb-normalform} ($\chi(x) = \alpha(w(x)-1)$, with
+$t = \max(d, 2d-r)$ and jump points $p_j = ja + t$) reproduces the family
+colouring of Lemma~\ref{lem:lb-family} exactly, with total length $N^{*}$, on all
+$6830$ pairs with $d \ge 2$, $a \le 120$ and $r \ne 2d$, plus ten larger pairs
+with $a$ up to $2051$ and $d$ up to $499$, including $(a, d) = (1001, 7)$,
+$(997, 30)$, $(1000, 499)$ and $(2051, 50)$; there were zero discrepancies. Every
+segment-level claim used inside the proof of Lemma~\ref{lem:lb-normalform} ---
+the exact segment boundaries $S_0$, $L_i$, $T_i$ (regime 1) and
+$C_0^{\mathrm{b}}$, $C_0^{\mathrm{s}}$, $C_i^{\mathrm{b}}$, $C_i^{\mathrm{s}}$,
+$F^{\mathrm{b}}$, $F^{\mathrm{s}}$ (regime 2), the jump count on each segment,
+the position of $p_i$ strictly inside the $i$-th long run, the phase windows, the
+aligned phase starts $0$ and $d$, and all segment lengths --- was checked
+pointwise on all $4694$ valid pairs with $a \le 100$, with zero errors. The full
+case analysis of Theorem~\ref{thm:lb} --- the trichotomy $n \in \{-1, 0, 1\}$,
+the offset windows and forced colours in every case and sub-case, the colours of
+$1, \dots, d+2$, the offset ranges, $q \ge 1$ in regime 1, and the absence of any
+monochromatic triple --- was checked by complete enumeration of all in-range
+triples $(x, k, y = x + a(k-1) + d)$ for all $2973$ pairs comprising every valid
+pair with $a \le 80$ together with ten larger pairs including $(101, 50)$,
+$(127, 63)$, $(211, 105)$, $(333, 5)$ and $(401, 100)$, again with zero errors.
+Finally, the construction was cross-validated at length exactly $N^{*}$ against
+an independent checker that iterates the raw equation
+$x_1 + a x_2 - x_3 = a - d$ directly (rather than the triple parametrisation), on
+further out-of-sample pairs covering both regimes and the edge values $r = 1$ and
+$r = d + 1$, including $(121, 60)$ (with $N^{*} = 7560$), $(97, 48)$, $(110, 54)$
+and $(123, 2)$: the family colouring was valid at length exactly $N^{*}$ in every
+case. The $d = 1$ triples of Remark~\ref{rem:lb-d1} were likewise confirmed on
+the actual construction output for $a = 5, 9, 13$ (colours $(1,1,1)$).
+\end{remark}

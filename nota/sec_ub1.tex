@@ -1,0 +1,500 @@
+﻿% ---------------------------------------------------------------------------
+% Body of Section 5: the upper bound in the regime r <= d, for ALL q >= 0.
+% This file is \input from main.tex -- no \documentclass, no \section here.
+% Uses host material: \eqref{eq:triples}, Lemma~\ref{lem:norm},
+% Lemma~\ref{lem:wlog}, Lemma~\ref{lem:mono}, Section~\ref{sec:family},
+% Theorem~\ref{thm:main}, Section~\ref{sec:conj}.
+% ---------------------------------------------------------------------------
+
+Throughout this section, $d \ge 2$ is fixed and $a \ge 1$ is an integer
+subject to the
+existence condition $\vtwo(a) \le \vtwo(a-d)$, where we adopt the conventions
+$\vtwo(0) := \infty$ and $\vtwo(-n) := \vtwo(n)$ for $n > 0$ (they are needed
+because $c = a - d$ may now be zero or negative). We write $a = 2dq + r$ with
+$q \ge 0$ and $r \in [1, 2d]$ --- this decomposition is unique --- and we
+assume the regime condition $r \le d$. In contrast with the rest of the
+paper we do \emph{not} assume $a > d$, and the theorem proved here covers
+\emph{all} $q \ge 0$ at once: $q \ge 1$ holds if and only if
+$a = 2dq + r \ge 2d + 1$, i.e.\ if and only if $c = a - d > 0$
+(cf.\ Lemma~\ref{lem:norm}(ii)), which is the window $0 < c < a$ of
+Theorem~\ref{thm:main}; while $q = 0$ holds if and only if $a = r \le d$,
+i.e.\ if and only if $c \le 0$ --- so the single statement also covers the
+whole half-line $c \le 0$, where the regime condition $r \le d$ is
+automatic. We prove that every $2$-colouring of $[1,N]$, where
+\[
+N \;:=\; (a+3)d + a - (r-1),
+\]
+contains a monochromatic solution of $x_1 + a x_2 - x_3 = a - d$
+(Theorem~\ref{thm:ub1-unified}). For $q \ge 1$, combined with the lower
+bound of Section~\ref{sec:family}, this establishes Theorem~\ref{thm:main}
+in the regime $r \le d$; for $q = 0$ it is the essential input to the proof
+of Conjecture~1 of Dwivedi--Tripathi (Theorem~\ref{thm:c1}) in
+Section~\ref{sec:conj}. All range conditions below are derived from the
+single inequality $N - E = 2d(q+1) + 1 \ge 2d + 1$, valid for every
+$q \ge 0$ (for $q \ge 1$ the stronger $N - E \ge 4d + 1$ is available, but
+it is never needed), together with the inequality $r \le a$, which replaces
+the bound $a \ge 2d + 1$, no longer available at $q = 0$. The proof is a
+rigidity argument, organised in five moves. A four-triple \emph{transport
+lemma} (Lemma~\ref{lem:ub1-transport}) shows that every colour-$1$ cell
+propagates the local pattern $1,0,1$ with step $d$, as long as there is room
+on the right. Applied once, transport yields a \emph{pairing}
+$\chi(s+d) = 1 - \chi(s)$ on $[1,d]$ (Lemma~\ref{lem:ub1-pairing}), which
+packages the prefix of the colouring into a $2d$-periodic antisymmetric
+pattern $p$. Applied inductively, transport forces $\chi$ to agree with $p$
+on a long initial \emph{window} (Lemma~\ref{lem:ub1-window}), while a
+complementary argument forces the inverted pattern
+$\chi(z) = 1 - p(z-E)$ on the \emph{far zone} $[E+1, N]$, where
+$E := d(a+1)$ (Lemma~\ref{lem:ub1-farzone}). The \emph{endgame} splits into
+two cases according to the restriction $\varphi := \chi|_{[1,d]}$. If
+$\varphi \not\equiv 0$, the window reaches beyond $a + 2d$, and the solution
+triples $(a+u,\, d,\, E+u)$ with $u \in [1,2d]$ couple window values to
+far-zone values along a complete residue system modulo $2d$; a
+translation-invariance argument in $\mathbb{Z}_{2d}$ --- resting on
+$\gcd(r,2d) \mid d$, which follows from the existence condition
+(Lemma~\ref{lem:2adic-a}) --- then produces a monochromatic triple
+(Lemma~\ref{lem:ub1-caseA}). If $\varphi \equiv 0$, the single explicit
+triple $(d+1-r,\, 2,\, a+2d+1-r)$ is monochromatic
+(Lemma~\ref{lem:ub1-caseB}).
+
+\paragraph{Setup.}
+Since $q \ge 0$ and $r \ge 1$, we have $a = 2dq + r \ge r$, with $a = r$ if
+and only if $q = 0$; the inequality $r \le a$ is the workhorse fact that
+will stand in for $a \ge 2d+1$ at $q = 0$. Since $r \le d$ we have
+$\min(r-1, d-1) = r-1$, so $N$ is the value asserted by
+Theorem~\ref{thm:main} in this regime, and expanding,
+\[
+N \;=\; ad + 3d + a + 1 - r \;=\; (d+1)a + 3d + 1 - r .
+\]
+With $E = d(a+1)$ this gives
+\[
+N - E \;=\; (d+1)a + 3d + 1 - r - d(a+1) \;=\; a + 2d + 1 - r
+\;=\; 2d(q+1) + 1 \;\ge\; 2d + 1,
+\]
+using $a = 2dq + r$ and $q \ge 0$; in particular $E + 2d \le N - 1$. For
+$q = 0$ one has $r = a$, so
+$N = (d+1)a + 3d + 1 - a = (a+3)d + 1 = (a+3)(a-c) + 1$ with $c = a - d$,
+which is exactly the value predicted by Conjecture~1 of Dwivedi--Tripathi.
+By \eqref{eq:triples}, the solutions of
+$x_1 + a x_2 - x_3 = a - d$ in $[1,N]^3$ are exactly the triples
+$T(x,k) = (x,\, k,\, x + a(k-1) + d)$ with $x \ge 1$, $k \in [1,N]$ and
+$x + a(k-1) + d \le N$; values may repeat. For $k_0 \in [1,N]$ we write
+$D_{k_0} := (k_0 - 1)a + d$ for the gap of the triples $T(\cdot, k_0)$;
+note that $D_{d+1} = da + d = E$. Finally, by Lemma~\ref{lem:wlog}, in every
+proof by contradiction below we may and do normalise $\chi(1) = 0$.
+
+We isolate first the $2$-adic ingredient announced in
+Lemma~\ref{lem:norm}(iii).
+
+\begin{lemma}[$2$-adic lemma]\label{lem:2adic-a}
+Let $e := \vtwo(d)$. If $\vtwo(a) \le \vtwo(a-d)$ --- with the conventions
+$\vtwo(0) = \infty$ and $\vtwo(-n) = \vtwo(n)$, since $a - d$ may be zero or
+negative when $q = 0$ --- then $\vtwo(r) \le e$; consequently
+$\gamma := \gcd(r, 2d)$ divides $d$.
+\end{lemma}
+
+\begin{proof}
+Write $d = 2^e m$ with $m$ odd, and suppose for contradiction that
+$\vtwo(r) \ge e+1$. Then $r \ne d$, since $\vtwo(d) = e < e+1$; write
+$r = 2^{e+1} r'$. First, $\vtwo(a) \ge e+1$: in $a = 2dq + r$ the term
+$2dq$ either vanishes (when $q = 0$, with $\vtwo(0) = \infty \ge e+1$) or
+satisfies $\vtwo(2dq) = e + 1 + \vtwo(q) \ge e+1$, and $\vtwo(r) \ge e+1$,
+so $2^{e+1}$ divides both terms. (For $q = 0$ this is simply
+$\vtwo(a) = \vtwo(r) \ge e+1$.) Second,
+$r - d = 2^{e+1} r' - 2^e m = 2^{e}(2r' - m)$ with $2r' - m$ odd and
+nonzero, so $\vtwo(r - d) = e$ exactly --- whether $r - d$ is positive or
+negative, by the convention $\vtwo(-n) = \vtwo(n)$. Hence
+$a - d = 2dq + (r - d)$ is the sum of a term of $2$-adic valuation at least
+$e+1$ (or of the zero term, when $q = 0$) and a term of valuation exactly
+$e$, so by the ultrametric inequality with strict disparity
+$\vtwo(a - d) = e$ exactly; in particular $a - d \ne 0$, so $\vtwo(a-d)$ is
+an ordinary integer. (For $q = 0$ this is simply $a - d = r - d$, of
+valuation $e$.) Then $\vtwo(a) \ge e+1 > e = \vtwo(a-d)$, contradicting the
+hypothesis. Therefore $\vtwo(r) \le e$.
+
+In the boundary case $r = d$ and $q = 0$ --- that is, $a = d$ and
+$a - d = 0$ --- the hypothesis holds trivially ($\vtwo(0) = \infty$) and so
+does the conclusion ($\vtwo(r) = \vtwo(d) = e \le e$); the contradiction
+argument above never encounters $r = d$.
+
+For the consequence, consider $\gamma = \gcd(r, 2d)$. Its $2$-part satisfies
+$\vtwo(\gamma) = \min(\vtwo(r), \vtwo(2d)) = \vtwo(r) \le e$, since
+$\vtwo(r) \le e < e + 1 = \vtwo(2d)$. Its odd part divides the odd part of
+$2d$, which is $m$. A positive integer divides $d = 2^e m$ if and only if
+its $2$-adic valuation is at most $e$ and its odd part divides $m$; $\gamma$
+satisfies both conditions, so $\gamma \mid d$.
+\end{proof}
+
+\begin{lemma}[first forced colour]\label{lem:ub1-first}
+Let $\chi$ be a valid colouring of $[1,N]$ with $\chi(1) = 0$. Then
+$\chi(d+1) = 1$.
+\end{lemma}
+
+\begin{proof}
+The triple $T(1,1) = (1,\, 1,\, 1+d)$ is a solution triple, and
+$1 + d \le N$ since
+$N = E + 2d(q+1) + 1 \ge E + 2d + 1 = d(a+1) + 2d + 1 \ge 3d + 1 > d + 1$,
+using only $a \ge 1$ and $q \ge 0$. Its first two entries have colour
+$\chi(1) = 0$; if $\chi(d+1) = 0$ the triple would be monochromatic. Hence
+$\chi(d+1) = 1$.
+\end{proof}
+
+\begin{lemma}[transport]\label{lem:ub1-transport}
+Let $\chi$ be a valid colouring of $[1,N]$ with $\chi(1) = 0$. Let
+$k_0 \in [1,N]$ satisfy $\chi(k_0) = 1$ and put
+$D := D_{k_0} = (k_0 - 1)a + d$. Then for every $y \in [1,\, N - D - d]$
+with $\chi(y) = 1$,
+\[
+\chi(y + d) = 0 \qquad\text{and}\qquad \chi(y + 2d) = 1 .
+\]
+\end{lemma}
+
+\begin{proof}
+This lemma and its proof are independent of $q$. All four triples used
+below are solution triples inside $[1,N]^3$; the range checks are given in
+brackets.
+
+\emph{Step 1.} $T(y, k_0) = (y,\, k_0,\, y + D)$
+[$x_3 = y + D \le N - d \le N$]. Since $\chi(y) = \chi(k_0) = 1$,
+monochromaticity would follow from $\chi(y + D) = 1$; hence
+$\chi(y + D) = 0$.
+
+\emph{Step 2.} $T(y + D, 1) = (y + D,\, 1,\, y + D + d)$
+[$x_3 = y + D + d \le N$ by the hypothesis $y \le N - D - d$]. Since
+$\chi(y + D) = \chi(1) = 0$, we get $\chi(y + D + d) = 1$.
+
+\emph{Step 3.} $T(y + d, k_0) = (y + d,\, k_0,\, y + d + D)$
+[$x_1 = y + d \ge 1$; $x_3 = y + D + d \le N$]. Since
+$\chi(y + d + D) = 1 = \chi(k_0)$, monochromaticity would follow from
+$\chi(y + d) = 1$; hence $\chi(y + d) = 0$.
+
+\emph{Step 4.} $T(y + d, 1) = (y + d,\, 1,\, y + 2d)$
+[$x_3 = y + 2d \le y + D + d \le N$, using $D = (k_0 - 1)a + d \ge d$].
+Since $\chi(y + d) = \chi(1) = 0$, we get $\chi(y + 2d) = 1$.
+
+(Recall that repeated values among $x_1, x_2, x_3$ are permitted, so no
+genericity conditions are needed.)
+\end{proof}
+
+\begin{lemma}[pairing]\label{lem:ub1-pairing}
+Let $\chi$ be valid on $[1,N]$ with $\chi(1) = 0$. Then
+$\chi(s + d) = 1 - \chi(s)$ for every $s \in [1,d]$. Define
+$\varphi(s) := \chi(s)$ for $s \in [1,d]$ (so $\varphi(1) = 0$), and define
+$p\colon \mathbb{Z} \to \{0,1\}$ by
+\[
+p(u) =
+\begin{cases}
+\varphi(s), & u \equiv s \pmod{2d} \text{ with } s \in [1,d],\\
+1 - \varphi(s), & u \equiv s + d \pmod{2d} \text{ with } s \in [1,d].
+\end{cases}
+\]
+Then $p$ is $2d$-periodic and antisymmetric, i.e.\ $p(u + d) = 1 - p(u)$
+for all $u$, with $p(1) = 0$, and $\chi(u) = p(u)$ for all $u \in [1, 2d]$.
+\end{lemma}
+
+\begin{proof}
+Fix $s \in [1,d]$. \emph{Not both $0$:} the triple
+$T(s,1) = (s,\, 1,\, s + d)$ lies in $[1,N]^3$, since
+$s + d \le 2d < N$ (indeed $N \ge E + 2d + 1 > 2d$); if
+$\chi(s) = \chi(s+d) = 0$, then together with $\chi(1) = 0$ it would be
+monochromatic --- contradiction. \emph{Not both $1$:} apply the transport
+lemma (Lemma~\ref{lem:ub1-transport}) with $k_0 = d+1$ (legitimate since
+$\chi(d+1) = 1$ by Lemma~\ref{lem:ub1-first}, and $d + 1 \le N$),
+$D = D_{d+1} = E$, at $y = s$. The room condition $s \le N - E - d$ holds
+for every $q \ge 0$:
+\[
+N - E - d \;=\; 2d(q+1) + 1 - d \;=\; 2dq + d + 1 \;\ge\; d + 1 \;>\; d
+\;\ge\; s .
+\]
+(At $q = 0$ the room is exactly $d + 1$, exceeding the largest seed
+$s = d$ by exactly one unit; this is the tightest point of the pairing
+step, and it is one of the two places where a single unit of room is lost
+at length $N - 1$.) If $\chi(s) = 1$, transport yields $\chi(s + d) = 0$.
+Hence exactly one of $\chi(s), \chi(s+d)$ equals $1$, i.e.\
+$\chi(s+d) = 1 - \chi(s)$.
+
+The stated properties of $p$ follow directly. It is $2d$-periodic by
+construction. Antisymmetry: if $u \equiv s \pmod{2d}$ with $s \in [1,d]$,
+then $u + d \equiv s + d$ and $p(u+d) = 1 - \varphi(s) = 1 - p(u)$; if
+$u \equiv s + d$, then $u + d \equiv s \pmod{2d}$ and
+$p(u + d) = \varphi(s) = 1 - (1 - \varphi(s)) = 1 - p(u)$. Finally,
+$\chi(u) = p(u)$ on $[1,2d]$ is exactly the definition of $\varphi$
+together with the pairing just proved.
+\end{proof}
+
+\begin{lemma}[window]\label{lem:ub1-window}
+Let $\chi$ be valid on $[1,N]$ with $\chi(1) = 0$, and let $\varphi, p$ be
+as in Lemma~\ref{lem:ub1-pairing}. Define
+\[
+s^{*} := \min\{\, s \in [2,\, d+1] : p(s) = 1 \,\}, \qquad
+D^{*} := (s^{*} - 1)a + d, \qquad
+X^{*} := N - D^{*} ,
+\]
+where $s^{*}$ is well defined since $p(d+1) = 1 - \varphi(1) = 1$. Then
+\[
+\chi(u) = p(u) \qquad \text{for every } u \in [1, X^{*}] .
+\]
+Moreover $X^{*} \ge N - E = 2d(q+1) + 1 \ge 2d + 1$, since
+$D^{*} \le D_{d+1} = E$.
+\end{lemma}
+
+\begin{proof}
+First, $\chi(s^{*}) = 1$: if $s^{*} \le d$ this is
+$\varphi(s^{*}) = p(s^{*}) = 1$ by the definition of $\varphi$; if
+$s^{*} = d + 1$ it is Lemma~\ref{lem:ub1-first}. Also
+$s^{*} \le d + 1 \le N$. The transport lemma therefore applies with
+$k_0 = s^{*}$, gap $D = D^{*}$, and room condition
+$y \le N - D^{*} - d = X^{*} - d$.
+
+Fix $s \in [1,d]$, and let $y_0 := s$ if $\varphi(s) = 1$, and
+$y_0 := s + d$ otherwise. By Lemma~\ref{lem:ub1-pairing}, $\chi(y_0) = 1$
+and $y_0 \in [1, 2d]$.
+
+\emph{Claim} (induction on $j \ge 0$):
+\begin{enumerate}
+\item[(a)] if $y_0 + 2dj \le X^{*} + d$, then $\chi(y_0 + 2dj) = 1$;
+\item[(b)] if $y_0 + 2dj + d \le X^{*}$, then $\chi(y_0 + 2dj + d) = 0$.
+\end{enumerate}
+\emph{Base case $j = 0$.} Part (a) is the seed $\chi(y_0) = 1$ (note
+$y_0 \le 2d \le X^{*} + d$, since $X^{*} \ge 2d + 1 > d$). For (b): if
+$y_0 + d \le X^{*}$, then $y_0 \le X^{*} - d$, so transport at $y = y_0$
+gives $\chi(y_0 + d) = 0$. \emph{Inductive step.} Assume (a) at $j$, i.e.\
+$\chi(y_j) = 1$ for $y_j := y_0 + 2dj \le X^{*} + d$ (if the hypothesis of
+(a) at $j$ fails, then the hypotheses of (a) at all larger indices and of
+(b) at all indices $\ge j$ fail as well, and there is nothing to prove).
+For (b) at $j$: if $y_j + d \le X^{*}$, then $y_j \le X^{*} - d$, and
+transport at $y_j$ gives $\chi(y_j + d) = 0$. For (a) at $j+1$: if
+$y_j + 2d \le X^{*} + d$, then $y_j \le X^{*} - d$, and transport at $y_j$
+gives $\chi(y_j + 2d) = 1$. This proves the claim.
+
+\emph{Coverage.} Let $u \in [1, X^{*}]$. Its residue modulo $2d$ equals
+that of $y_0$ or of $y_0 + d$ for the appropriate $s \in [1,d]$, since
+$\{y_0,\, y_0 + d\} \equiv \{s,\, s + d\} \pmod{2d}$.
+
+\emph{Case $u \equiv y_0 \pmod{2d}$.} Since $y_0 \in [1, 2d]$, the least
+positive representative of its class is $y_0$ itself, so
+$u = y_0 + 2dj$ for some $j \ge 0$, with $u \le X^{*} < X^{*} + d$; by (a),
+$\chi(u) = 1 = p(u)$, since $p(u) = p(y_0) = \chi(y_0) = 1$ by
+construction.
+
+\emph{Case $u \equiv y_0 + d \pmod{2d}$.} If $y_0 = s$ (the case
+$\varphi(s) = 1$), the least positive representative is $s + d = y_0 + d$,
+so $u = y_0 + d + 2dj$ for some $j \ge 0$ with $u \le X^{*}$; by (b),
+$\chi(u) = 0 = p(u)$, since $p(u) = p(s + d) = 1 - \varphi(s) = 0$. If
+$y_0 = s + d$ (the case $\varphi(s) = 0$), the least positive
+representative is $s$: either $u = s$, a seed value with
+$\chi(s) = \varphi(s) = 0 = p(u)$ (Lemma~\ref{lem:ub1-pairing}), or
+$u = s + 2dj = y_0 + d + 2d(j-1)$ for some $j \ge 1$ with $u \le X^{*}$,
+and (b) gives $\chi(u) = 0 = p(u)$.
+
+In all cases $\chi(u) = p(u)$. Every step above is independent of $q$; the
+only $q$-sensitive quantity is the guaranteed window length
+$X^{*} \ge 2d(q+1) + 1$, which at $q = 0$ equals $2d + 1$ and in particular
+still covers $[1, 2d]$ and the cell $2d + 1$.
+\end{proof}
+
+\begin{lemma}[far zone]\label{lem:ub1-farzone}
+Let $\chi$ be valid on $[1,N]$ with $\chi(1) = 0$, let $p, s^{*}, X^{*}$ be
+as above, and $E = d(a+1)$. Then
+\[
+\chi(z) = 1 - p(z - E) \qquad \text{for every } z \in [E+1,\, N] .
+\]
+\end{lemma}
+
+\begin{proof}
+Let $u := z - E \in [1,\, N - E]$, where $N - E = 2d(q+1) + 1$. Since
+$u \le N - E \le X^{*}$ (Lemma~\ref{lem:ub1-window}), the value
+$\chi(u) = p(u)$ is known.
+
+\emph{Case 1: $p(u) = 1$.} Then $\chi(u) = 1$, and the triple
+$T(u, d+1) = (u,\, d+1,\, u + E) = (u,\, d+1,\, z)$ lies in $[1,N]^3$
+($x_2 = d + 1 \le N$; $x_3 = z \le N$ by hypothesis). Since
+$\chi(u) = \chi(d+1) = 1$ (Lemma~\ref{lem:ub1-first}), monochromaticity
+would follow from $\chi(z) = 1$; hence $\chi(z) = 0 = 1 - p(u)$.
+
+\emph{Case 2: $p(u) = 0$.} Sub-case $u \le N - E - d$: then
+$u + d \le N - E$ and $p(u + d) = 1$ by antisymmetry, so Case~1 applied to
+$u + d$ gives $\chi(z + d) = \chi(E + u + d) = 0$. The triple
+$T(z, 1) = (z,\, 1,\, z + d)$ lies in $[1,N]^3$
+($z + d = E + u + d \le N$). If $\chi(z) = 0$, then
+$\chi(z) = \chi(1) = \chi(z + d) = 0$ would be monochromatic ---
+contradiction; hence $\chi(z) = 1 = 1 - p(u)$.
+
+Sub-case $u > N - E - d$, i.e.\ $u \ge N - E - d + 1 = 2dq + d + 2$: since
+$2dq + d + 2 \ge d + 2 > d + 1$ for every $q \ge 0$, we have
+$u - d \ge 2 \ge 1$, and $p(u - d) = 1 - p(u) = 1$ by antisymmetry.
+Moreover $u - d \le N - E$, so Case~1 applied to $u - d$ gives
+$\chi(z - d) = \chi(E + (u - d)) = 0$. Also
+$z - d = E + (u - d) \ge E + 1$, so $z - d \in [E+1, N]$ and the triple
+$T(z - d, 1) = (z - d,\, 1,\, z)$ lies in $[1,N]^3$ ($x_3 = z \le N$). If
+$\chi(z) = 0$, then $\chi(z - d) = \chi(1) = \chi(z) = 0$ would be
+monochromatic --- contradiction; hence $\chi(z) = 1 = 1 - p(u)$.
+
+(For $q = 0$ the sub-case threshold reads $u \ge d + 2$, with $u$ ranging
+over $[1, 2d+1]$: both sub-cases are nonempty and together they exhaust
+the range; at the top cell $u = 2d + 1 \equiv 1 \pmod{2d}$ one has
+$p(u) = p(1) = 0$ and $u - d = d + 1$ with $p(d+1) = 1$, as used.)
+\end{proof}
+
+\begin{remark}[window--far-zone overlap]
+When $X^{*} \ge E + 1$ the window of Lemma~\ref{lem:ub1-window} and the far
+zone of Lemma~\ref{lem:ub1-farzone} overlap, and on the overlap the two
+forced formulas may disagree. This is no inconsistency: both lemmas are
+implications from the assumed validity of $\chi$, so any disagreement
+refutes validity outright; the endgame below provides a uniform
+contradiction in all cases regardless.
+\end{remark}
+
+\begin{lemma}[endgame, Case A: $\varphi \not\equiv 0$]\label{lem:ub1-caseA}
+Suppose $\chi$ is a valid colouring of $[1,N]$ with $\chi(1) = 0$, and
+suppose $s^{*} \le d$ (that is, $\varphi(s) = 1$ for some $s \in [2,d]$;
+this requires $d \ge 2$). Set $\varepsilon := \varphi(d)$. Then there
+exists $u \in [1, 2d]$ with
+\[
+p(u + r) = \varepsilon \qquad\text{and}\qquad p(u) = 1 - \varepsilon ,
+\]
+and for any such $u$ the solution triple $(a + u,\, d,\, E + u)$ is
+monochromatic of colour $\varepsilon$. This contradicts validity, so no
+such $\chi$ exists.
+\end{lemma}
+
+\begin{proof}
+\emph{Existence of $u$.} (This step is independent of $q$ and does not use
+the hypothesis $s^{*} \le d$, which enters only through the forced colours
+below.) View $p$ as a function on $\mathbb{Z}_{2d}$
+(residues represented by $[1, 2d]$) and let
+$P := \{\, v \in \mathbb{Z}_{2d} : p(v) = \varepsilon \,\}$. Suppose no $u$
+as stated exists; then for every $u \in \mathbb{Z}_{2d}$,
+$p(u + r) = \varepsilon$ implies $p(u) = \varepsilon$, i.e.\
+$P - r \subseteq P$, where $P - r := \{\, v : v + r \in P \,\}$.
+Translation by $r$ is a bijection of $\mathbb{Z}_{2d}$, so $|P - r| = |P|$,
+forcing $P - r = P$. Iterating, $P - jr = P$ for all $j \ge 0$, so $P$ is
+invariant under translation by every element of the subgroup
+$\langle r \rangle = \gamma\,(\mathbb{Z}_{2d})$, where $\gamma = \gcd(r, 2d)$.
+By Lemma~\ref{lem:2adic-a}, $\gamma \mid d$, so $d \in \langle r \rangle$
+and $P - d = P$. Now $d \in P$, because
+$p(d) = \varphi(d) = \varepsilon$; hence $2d = d + d \in P$ (using
+$P = P + d$), i.e.\ $p(2d) = \varepsilon$. But antisymmetry gives
+$p(2d) = p(d + d) = 1 - p(d) = 1 - \varepsilon$ --- a contradiction. The
+required $u$ exists.
+
+\emph{The triple.} Fix such a $u \in [1, 2d]$ and consider
+\[
+T(a + u,\, d)
+= \bigl(a + u,\ d,\ (a + u) + (d - 1)a + d\bigr)
+= (a + u,\ d,\ E + u) .
+\]
+Ranges: $x_1 = a + u \ge a + 1 \ge 2$; $x_2 = d \in [1, N]$;
+$x_3 = E + u \le E + 2d \le N$, since
+$N - E = 2d(q+1) + 1 \ge 2d + 1 > 2d$ for every $q \ge 0$.
+Forced colours:
+\begin{enumerate}
+\item[(1)] $x_1 = a + u \le a + 2d \le X^{*}$: indeed $s^{*} \le d$ gives
+$D^{*} = (s^{*} - 1)a + d \le (d-1)a + d$, so
+\[
+X^{*} = N - D^{*} \ge N - (d-1)a - d
+= (d+1)a + 3d + 1 - r - (d-1)a - d = 2a + 2d + 1 - r ,
+\]
+and $(2a + 2d + 1 - r) - (a + 2d) = a + 1 - r \ge 1 > 0$, because
+$r \le a$ (Setup; valid for every $q \ge 0$, with equality $r = a$ exactly
+at $q = 0$, where the slack is exactly one unit). Hence, by the window
+lemma, $\chi(a + u) = p(a + u) = p(u + r)$, because
+$a - r = 2dq \equiv 0 \pmod{2d}$ --- an identity valid at $q = 0$ as well,
+where $a = r$ exactly; by the choice of $u$, $\chi(a + u) = \varepsilon$.
+\item[(2)] $\chi(d) = \varphi(d) = \varepsilon$ by definition.
+\item[(3)] $x_3 = E + u \in [E+1,\, E+2d] \subseteq [E+1,\, N]$, so by the
+far-zone lemma
+$\chi(E + u) = 1 - p(u) = 1 - (1 - \varepsilon) = \varepsilon$.
+\end{enumerate}
+Thus all three entries have colour $\varepsilon$: the triple is
+monochromatic, contradicting the validity of $\chi$.
+\end{proof}
+
+\begin{lemma}[endgame, Case B: $\varphi \equiv 0$]\label{lem:ub1-caseB}
+Suppose $\chi$ is a valid colouring of $[1,N]$ with $\chi(1) = 0$, and
+suppose $s^{*} = d + 1$ (that is, $\varphi(s) = 0$ for all $s \in [1,d]$).
+Then the solution triple $(d + 1 - r,\, 2,\, a + 2d + 1 - r)$ is
+monochromatic of colour $0$. This contradicts validity, so no such $\chi$
+exists.
+\end{lemma}
+
+\begin{proof}
+Here $D^{*} = D_{d+1} = E$, so
+$X^{*} = N - E = a + 2d + 1 - r = 2d(q+1) + 1$. Consider
+\[
+T(d + 1 - r,\, 2)
+= \bigl(d + 1 - r,\ 2,\ (d + 1 - r) + a + d\bigr)
+= (d + 1 - r,\ 2,\ a + 2d + 1 - r) .
+\]
+Ranges: $x_1 = d + 1 - r \ge 1$ since $r \le d$ (at $q = 0$ this reads
+$x_1 = d + 1 - a \ge 1$, using $r = a \le d$); $x_2 = 2 \in [1, N]$;
+$x_3 = a + 2d + 1 - r = X^{*} \le N$ since $D^{*} \ge 0$. Forced colours:
+\begin{enumerate}
+\item[(1)] $\chi(d + 1 - r) = \varphi(d + 1 - r) = 0$, since
+$d + 1 - r \in [1, d]$ (as $1 \le r \le d$) and $\varphi \equiv 0$;
+\item[(2)] $\chi(2) = \varphi(2) = 0$, using $d \ge 2$ so that
+$2 \in [1, d]$;
+\item[(3)] $x_3 = X^{*}$ lies in the window, and
+$X^{*} - 1 = a + 2d - r = 2dq + 2d = 2d(q+1) \equiv 0 \pmod{2d}$ --- an
+identity valid verbatim at $q = 0$, where $X^{*} - 1 = 2d$ --- so
+$X^{*} \equiv 1 \pmod{2d}$ and, by the window lemma and the
+$2d$-periodicity of $p$,
+$\chi(X^{*}) = p(X^{*}) = p(1) = \varphi(1) = 0$.
+\end{enumerate}
+All three entries have colour $0$: the triple is monochromatic,
+contradicting the validity of $\chi$. Every inequality in this proof is
+independent of $q$.
+\end{proof}
+
+\begin{theorem}[unified upper bound, regime $r \le d$, all
+$q \ge 0$]\label{thm:ub1-unified}
+Let $d \ge 2$ and let $a \ge 1$ satisfy $\vtwo(a) \le \vtwo(a - d)$ (with
+the conventions $\vtwo(0) = \infty$ and $\vtwo(-n) = \vtwo(n)$); write
+$a = 2dq + r$ with $q \ge 0$ and $r \in [1, 2d]$, and assume $r \le d$.
+Then every $2$-colouring of $[1, N]$, where
+$N = (a+3)d + a - (r-1) = (d+1)a + 3d + 1 - r$, contains a monochromatic
+solution of $x_1 + a x_2 - x_3 = a - d$. Consequently
+\[
+\Rad(a;\, a - d) \;\le\; (a+3)d + a - (r-1)
+\;=\; (a+3)d + a - \min(r-1,\, d-1) .
+\]
+\end{theorem}
+
+\begin{proof}
+Suppose some $2$-colouring $\chi$ of $[1, N]$ has no monochromatic
+solution. By Lemma~\ref{lem:wlog} we may assume $\chi(1) = 0$.
+Lemma~\ref{lem:ub1-first} gives $\chi(d+1) = 1$;
+Lemma~\ref{lem:ub1-pairing} defines $\varphi$ on $[1,d]$ and its
+$2d$-periodic antisymmetric extension $p$, with $\chi = p$ on $[1, 2d]$;
+and $s^{*} = \min\{\, s \in [2, d+1] : p(s) = 1 \,\}$ is well defined since
+$p(d+1) = 1 - \varphi(1) = 1$ (Lemma~\ref{lem:ub1-window}). If
+$s^{*} \le d$, Lemma~\ref{lem:ub1-caseA} produces the monochromatic
+solution triple $(a + u,\, d,\, E + u)$ --- contradiction. If
+$s^{*} = d + 1$, then $p(s) = 0$ for all $s \in [2, d]$, and
+$\varphi(1) = 0$, so $\varphi \equiv 0$ on $[1, d]$;
+Lemma~\ref{lem:ub1-caseB} produces the monochromatic triple
+$(d + 1 - r,\, 2,\, a + 2d + 1 - r)$ --- contradiction. Hence no such
+$\chi$ exists and $\Rad(a;\, a - d) \le N$. Since $r \le d$ gives
+$\min(r-1,\, d-1) = r - 1$, this is exactly the stated bound. The chain of
+lemmas used only $N - E = 2d(q+1) + 1 \ge 2d + 1$
+(Lemmas~\ref{lem:ub1-first}, \ref{lem:ub1-pairing},
+\ref{lem:ub1-farzone} and~\ref{lem:ub1-caseA}), $r \le a$
+(Lemma~\ref{lem:ub1-caseA}), $r \le d$ (Lemma~\ref{lem:ub1-caseB}),
+$d \ge 2$ (Lemma~\ref{lem:ub1-caseB}, and the nonvacuity of Case~A), and
+$\gcd(r, 2d) \mid d$ from the existence condition
+(Lemmas~\ref{lem:2adic-a} and~\ref{lem:ub1-caseA}) --- each established
+for every $q \ge 0$.
+\end{proof}
+
+\begin{remark}[tightness]
+At length $N - 1$ the same derivations lose exactly one unit of room: the
+window lemma then forces $\chi = p$ only on $[1,\, X^{*} - 1]$, and at
+$q = 0$ the pairing room condition $s \le N - E - d$ and the Case~A window
+slack $a + 1 - r$ are tight with margin exactly one. For $q \ge 1$ the
+extremal family of Section~\ref{sec:family}, which realises
+$\varphi \equiv 0$ and places its $d$ long runs beyond the shortened
+window, shows that the bound of Theorem~\ref{thm:ub1-unified} cannot be
+improved; for $q = 0$ the valid colourings of $[1, N-1]$ supplied by the
+lower bound of Dwivedi--Tripathi \cite{DT2020} (Theorem~2 there, valid for
+all $c < a$), invoked in Section~\ref{sec:conj}, show the same
+(cf.\ Lemma~\ref{lem:mono}).
+\end{remark}
